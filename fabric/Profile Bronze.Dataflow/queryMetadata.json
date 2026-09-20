@@ -6,6 +6,58 @@
   "name": "Profile Bronze",
   "queryGroups": [],
   "documentLocale": "en-US",
-  "queriesMetadata": {},
-  "connections": []
+  "queriesMetadata": {
+    "bronze olist_products_dataset": {
+      "queryId": "7dc22a02-74f4-4251-bfe9-fce5fa710bb9",
+      "queryName": "bronze olist_products_dataset"
+    },
+    "bronze olist_customers_dataset": {
+      "queryId": "673020c2-6a74-440d-b6dc-f20d5551a944",
+      "queryName": "bronze olist_customers_dataset"
+    },
+    "bronze olist_geolocation_dataset": {
+      "queryId": "203d6820-e217-432e-86e4-179bc59911c6",
+      "queryName": "bronze olist_geolocation_dataset"
+    },
+    "bronze olist_order_items_dataset": {
+      "queryId": "3a7996e7-6cb5-418e-8eff-50bc1665978d",
+      "queryName": "bronze olist_order_items_dataset"
+    },
+    "bronze olist_order_payments_dataset": {
+      "queryId": "545b03a5-726c-48ec-ad3d-1ba7d589ec46",
+      "queryName": "bronze olist_order_payments_dataset"
+    },
+    "bronze olist_order_reviews_dataset": {
+      "queryId": "57f90a12-50fe-4ab3-b1a2-fc12393004fc",
+      "queryName": "bronze olist_order_reviews_dataset"
+    },
+    "bronze olist_orders_dataset": {
+      "queryId": "14d91873-7b83-409a-a596-b447b5d96c60",
+      "queryName": "bronze olist_orders_dataset"
+    },
+    "bronze olist_sellers_dataset": {
+      "queryId": "65e6b098-68e8-4727-ab3f-cb131b887881",
+      "queryName": "bronze olist_sellers_dataset"
+    },
+    "bronze product_category_name_translation": {
+      "queryId": "52bf8ddb-2985-435d-be9e-0d1e5cb1f610",
+      "queryName": "bronze product_category_name_translation"
+    },
+    "SQLAE folding bronze olist_products_dataset": {
+      "queryId": "c1ccb26b-3b33-4789-87e6-a2889cb45a0c",
+      "queryName": "SQLAE folding bronze olist_products_dataset"
+    }
+  },
+  "connections": [
+    {
+      "path": "Lakehouse",
+      "kind": "Lakehouse",
+      "connectionId": "{\"ClusterId\":\"<connection-cluster-id>\",\"DatasourceId\":\"<connection-id>\"}"
+    },
+    {
+      "path": "<sql-endpoint>.datawarehouse.fabric.microsoft.com",
+      "kind": "SQL",
+      "connectionId": "{\"ClusterId\":\"<connection-cluster-id>\",\"DatasourceId\":\"<connection-id>\"}"
+    }
+  ]
 }
