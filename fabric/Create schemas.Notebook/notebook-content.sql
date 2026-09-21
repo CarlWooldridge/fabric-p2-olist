@@ -28,7 +28,37 @@
 -- MAGIC spark.sql("CREATE SCHEMA IF NOT EXISTS silver")
 -- MAGIC spark.sql("CREATE SCHEMA IF NOT EXISTS gold")
 -- MAGIC 
+-- MAGIC 
+-- MAGIC 
+-- MAGIC 
+-- MAGIC 
+-- MAGIC 
+-- MAGIC 
+
+
+-- METADATA ********************
+
+-- META {
+-- META   "language": "python",
+-- META   "language_group": "synapse_pyspark"
+-- META }
+
+-- CELL ********************
+
+-- MAGIC %%pyspark
 -- MAGIC spark.sql("CREATE SCHEMA IF NOT EXISTS meta")   # pipeline plumbing, not medallion data
+
+-- METADATA ********************
+
+-- META {
+-- META   "language": "python",
+-- META   "language_group": "synapse_pyspark"
+-- META }
+
+-- CELL ********************
+
+-- MAGIC %%pyspark
+-- MAGIC spark.sql("CREATE SCHEMA IF NOT EXISTS staging")
 
 -- METADATA ********************
 
