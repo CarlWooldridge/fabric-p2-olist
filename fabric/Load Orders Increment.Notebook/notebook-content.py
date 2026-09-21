@@ -39,6 +39,15 @@ tgt = DeltaTable.forName(spark, "gold.fact_orders_incremental")
     .whenNotMatchedInsertAll()
     .execute())
 
+# The lines of those same orders (Step 2b) — BEFORE the watermark moves, or new_rows re-reads as empty
+new_lines = spark.table("silver.order_items").join(new_rows.select("order_id"), "order_id")
+print("lines to load:", new_lines.count())
+(DeltaTable.forName(spark, "gold.fact_order_items_incremental").alias("t")
+    .merge(new_lines.alias("s"), "t.order_id = s.order_id AND t.order_item_id = s.order_item_id")
+    .whenMatchedUpdateAll()
+    .whenNotMatchedInsertAll()
+    .execute())
+
 new_wm = new_rows.agg(_max("order_purchase_timestamp")).collect()[0][0]
 if new_wm is not None:                    # nothing new = leave the watermark alone
     spark.sql(f"""

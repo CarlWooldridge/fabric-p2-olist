@@ -58,3 +58,20 @@ print("initial rows:", spark.table("gold.fact_orders_incremental").count())
 # META   "language": "python",
 # META   "language_group": "synapse_pyspark"
 # META }
+
+# CELL ********************
+
+from pyspark.sql.functions import col
+
+WM = "2017-12-31 23:59:59"
+initial_ids = spark.table("silver.orders").where(col("order_purchase_timestamp") <= WM).select("order_id")
+(spark.table("silver.order_items").join(initial_ids, "order_id")
+    .write.mode("overwrite").saveAsTable("gold.fact_order_items_incremental"))
+print("initial lines:", spark.table("gold.fact_order_items_incremental").count())
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
