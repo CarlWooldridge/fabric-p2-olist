@@ -48,3 +48,21 @@ for f in files:
 # META   "language": "python",
 # META   "language_group": "synapse_pyspark"
 # META }
+
+# CELL ********************
+
+from pyspark.sql import functions as F
+
+for f in ["synthetic_customer_names", "synthetic_seller_names", "synthetic_product_names"]:
+    (spark.read.option("header", "true").csv(f"Files/raw/synthetic/{f}.csv")
+        .withColumn("_source_file", F.input_file_name())
+        .withColumn("_ingested_at", F.current_timestamp())
+        .write.mode("overwrite").saveAsTable(f"bronze.{f}"))
+    print(f, spark.table(f"bronze.{f}").count())
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
