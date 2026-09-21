@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "Load Orders Increment"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "71e27305-f9b9-b338-48da-cf2d919471c7"
+  }
+}

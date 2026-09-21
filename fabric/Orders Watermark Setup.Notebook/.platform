@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "Orders Watermark Setup"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "044c71d2-e440-b335-4d15-c275d4ada9c3"
+  }
+}
