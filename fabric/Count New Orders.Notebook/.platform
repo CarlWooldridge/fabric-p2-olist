@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "Count New Orders"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "e02be3ce-bf93-985c-4918-f3c8c5179adc"
+  }
+}

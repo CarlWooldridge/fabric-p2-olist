@@ -183,8 +183,8 @@ print("rows:", cust.count(),
 # META {
 # META   "language": "python",
 # META   "language_group": "synapse_pyspark",
-# META   "frozen": true,
-# META   "editable": false
+# META   "frozen": false,
+# META   "editable": true
 # META }
 
 # CELL ********************
@@ -213,12 +213,14 @@ print("rows:", silver_customers.count(), " people with 2+ addresses:", moved,
 
 # CELL ********************
 
+from pyspark.sql import functions as F
+
 sell  = spark.table("bronze.olist_sellers_dataset")
 zipc  = spark.table("silver.geo_zip_prefix").select("zip_prefix", F.col("city").alias("geo_city"))
 snames = spark.table("bronze.synthetic_seller_names").select("seller_id", "seller_name")
 
 city = F.regexp_replace(                                   # 'andira-pr' -> 'andira'
-    norm_city(F.split("seller_city", r"\s*[/,]\s*|\s+-\s+").getItem(0)), r"-[a-z]{2}$", "")
+    norm_city(F.split("seller_city", r"\s*[/,\\]\s*|\s+-\s+").getItem(0)), r"-[a-z]{2}$", "")
 silver_sellers = (sell
     .select("seller_id",
             F.col("seller_zip_code_prefix").alias("zip_prefix"),
@@ -231,7 +233,7 @@ silver_sellers = (sell
     .select("seller_id", "seller_name", "zip_prefix", "city", "state"))
 silver_sellers.write.mode("overwrite").option("overwriteSchema", "true").saveAsTable("silver.sellers")
 print("rows:", silver_sellers.count(),
-      " city still junk:", silver_sellers.where(F.col("city").rlike("[/,@0-9]")).count(),
+      " city still junk:", silver_sellers.where(F.col("city").rlike(r"[/,@0-9\\]")).count(),
       " no name:", silver_sellers.where("seller_name IS NULL").count())
 
 # METADATA ********************
@@ -320,6 +322,6 @@ df_counts.show(truncate=False)
 # META {
 # META   "language": "python",
 # META   "language_group": "synapse_pyspark",
-# META   "frozen": false,
-# META   "editable": true
+# META   "frozen": true,
+# META   "editable": false
 # META }
