@@ -38,7 +38,7 @@ SPEC = {
 }
 
 for bronze_name, (silver_name, types) in SPEC.items():
-    df = spark.table(f"bronze.{bronze_name}").drop("_source_file")
+    df = spark.table(f"bronze.{bronze_name}").drop("_source_file", "_ingested_at")
     for c, t in types.items():
         df = (df.withColumnRenamed(c, f"{c}__raw")
                 .withColumn(c, F.expr(f"try_cast(`{c}__raw` AS {t})")))
@@ -111,14 +111,9 @@ zip_geo = (br.groupBy("zip_prefix").agg(
         F.expr("mode(state)").alias("state"),
         F.countDistinct("city").alias("city_count"),       # >1 = the prefix spans several towns
         F.count("*").alias("observation_count"),
-        (F.max("lat") - F.min("lat")).alias("lat_spread")))  # >1° ≈ 110 km of stray points
+        (F.max("lat") - F.min("lat")).alias("lat_spread"))  # >1° ≈ 110 km of stray points
+    .withColumn("geo_source", F.lit("observed")))           # Step 6 adds the prefixes geo never saw
 zip_geo.write.mode("overwrite").option("overwriteSchema", "true").saveAsTable("silver.geo_zip_prefix")
-
-# 3. City centers — the fallback for prefixes geo doesn't have
-(br.groupBy("city", "state").agg(
-        F.expr("percentile(lat, 0.5)").alias("lat"),
-        F.expr("percentile(lng, 0.5)").alias("lng"))
-   .write.mode("overwrite").option("overwriteSchema", "true").saveAsTable("silver.geo_city"))
 
 print("prefixes:", zip_geo.count(),
       " spread > 1°:", zip_geo.where("lat_spread > 1").count(),
@@ -248,14 +243,38 @@ print("rows:", silver_sellers.count(),
 
 # CELL ********************
 
-zg = spark.table("silver.geo_zip_prefix").select("zip_prefix", F.lit(1).alias("by_zip"))
-cg = spark.table("silver.geo_city").select("city", "state", F.lit(1).alias("by_city"))
+from pyspark.sql import functions as F
 
+observed = spark.table("silver.geo_zip_prefix").where("geo_source = 'observed'").localCheckpoint()
+
+# Town centers from the same in-Brazil points as Step 2 — a working step, not a table
+towns = (spark.table("bronze.olist_geolocation_dataset")
+    .select(F.expr("try_cast(geolocation_lat AS double)").alias("lat"),
+            F.expr("try_cast(geolocation_lng AS double)").alias("lng"),
+            norm_city("geolocation_city").alias("city"),
+            F.upper(F.trim("geolocation_state")).alias("state"))
+    .where("lat BETWEEN -34 AND 6 AND lng BETWEEN -74 AND -34")
+    .groupBy("city", "state").agg(F.expr("percentile(lat, 0.5)").alias("lat"),
+                                  F.expr("percentile(lng, 0.5)").alias("lng")))
+
+# Every prefix a customer or seller uses that geo never saw, with its most common town
+used = (spark.table("silver.customers").select("zip_prefix", "city", "state")
+        .unionByName(spark.table("silver.sellers").select("zip_prefix", "city", "state")))
+gaps = (used.join(observed.select("zip_prefix"), "zip_prefix", "left_anti")
+        .groupBy("zip_prefix").agg(F.expr("mode(city)").alias("city"), F.expr("mode(state)").alias("state"))
+        .join(towns, ["city", "state"], "left")
+        .withColumn("geo_source", F.when(F.col("lat").isNotNull(), "city_fallback").otherwise("unresolved")))
+
+(observed.unionByName(gaps, allowMissingColumns=True)
+    .write.mode("overwrite").option("overwriteSchema", "true").saveAsTable("silver.geo_zip_prefix"))
+spark.sql("DROP TABLE IF EXISTS silver.geo_city")          # superseded: one geo table
+
+geo = spark.table("silver.geo_zip_prefix")
+display(geo.groupBy("geo_source").count())
 for name in ["customers", "sellers"]:
-    t = (spark.table(f"silver.{name}")
-         .join(zg, "zip_prefix", "left").join(cg, ["city", "state"], "left"))
-    print(f"{name:10} rows {t.count():>6,} | no zip match {t.where('by_zip IS NULL').count():>4}"
-          f" | of those, city fallback works {t.where('by_zip IS NULL AND by_city = 1').count():>4}")
+    t = spark.table(f"silver.{name}")
+    print(f"{name:10} no geo row: {t.join(geo, 'zip_prefix', 'left_anti').count():>3}"
+          f" | no lat/lng: {t.join(geo, 'zip_prefix').where('lat IS NULL').count():>3}")
 
 # METADATA ********************
 
@@ -301,6 +320,6 @@ df_counts.show(truncate=False)
 # META {
 # META   "language": "python",
 # META   "language_group": "synapse_pyspark",
-# META   "frozen": true,
-# META   "editable": false
+# META   "frozen": false,
+# META   "editable": true
 # META }
