@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "Fault tolerance - Copy activity "
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "8fb7968e-4491-8603-45e5-e0348627fe5b"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "P2 Fault Tolerance"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "36946503-f9d7-8666-4614-c6bd982323e9"
+  }
+}
