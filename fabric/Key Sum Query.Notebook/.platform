@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "Key Sum Query"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "82d26b11-f443-9330-4b8a-8d772aa439a1"
+  }
+}

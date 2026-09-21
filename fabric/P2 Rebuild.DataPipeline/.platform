@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "DataPipeline",
+    "displayName": "P2 Rebuild"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "c050d216-8157-9627-4059-83cced8522c6"
+  }
+}

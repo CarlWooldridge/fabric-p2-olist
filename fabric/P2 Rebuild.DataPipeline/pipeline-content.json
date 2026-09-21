@@ -1,0 +1,95 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "type": "TridentNotebook",
+        "typeProperties": {
+          "notebookId": "622945e4-9d61-9fb9-4885-2086e4c1fd14",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "sessionTag": "p2rebuild"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Bronze Build",
+        "dependsOn": []
+      },
+      {
+        "type": "TridentNotebook",
+        "typeProperties": {
+          "notebookId": "55e2bf5e-d014-8707-4b79-018bdcc4429d",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "sessionTag": "p2rebuild"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Silver Build",
+        "dependsOn": [
+          {
+            "activity": "Bronze Build",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "TridentNotebook",
+        "typeProperties": {
+          "notebookId": "a96d0819-0949-b18e-4935-b3371d9d51fe",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "sessionTag": "p2rebuild"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Gold Build",
+        "dependsOn": [
+          {
+            "activity": "Dim Customer SCD2",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "TridentNotebook",
+        "typeProperties": {
+          "notebookId": "d1f8f675-49a4-8f0a-45e7-f2f556f1e079",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "sessionTag": "p2rebuild"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Dim Customer SCD2",
+        "dependsOn": [
+          {
+            "activity": "Silver Build",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
