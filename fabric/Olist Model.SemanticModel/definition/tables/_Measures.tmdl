@@ -1,7 +1,10 @@
 table _Measures
 	lineageTag: 8969a2cf-1045-4399-92bd-412be01f9bc8
 
-	measure 'Order Count' = COUNTROWS('fact_orders')
+	measure 'Order Count' = ```
+			COUNTROWS('fact_orders') -- header
+			
+			```
 		formatString: #,0
 		lineageTag: 840f5be2-d163-48e1-b508-63e56c280b93
 
@@ -39,7 +42,7 @@ table _Measures
 		formatString: #,0
 		lineageTag: e6ae2ee6-fe75-4b66-8a35-0929f41eb947
 
-	measure Revenue = SUM('fact_order_items'[price])
+	measure Revenue = SUM('fact_order_items'[price]) --lines
 		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
 		lineageTag: d2efcc91-bdcd-4b9e-b989-c3277a7f1188
 
@@ -73,6 +76,68 @@ table _Measures
 			
 			AVERAGEX('bridge_order_payment', RELATED('fact_orders'[review_score]))
 		lineageTag: a450a1ae-e91d-4f63-9c95-4e3b6e66d630
+
+	measure Freight = SUM('fact_order_items'[freight_value])  -- lines
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 777a79ef-9d8c-4034-a51f-16f8a7043620
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Revenue YTD' = CALCULATE([Revenue], DATESYTD('dim_date'[date_key]))
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 4f7af7c5-e9f5-4cb8-a889-14a75d812861
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Revenue PY' = CALCULATE([Revenue], SAMEPERIODLASTYEAR('dim_date'[date_key]))
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: abeab950-f6ef-4dfb-8e9b-a06905dea682
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Revenue YoY %' =
+			
+			VAR cur = [Revenue]
+			VAR py  = [Revenue PY]
+			RETURN DIVIDE(cur - py, py)
+		lineageTag: b1d3703d-7bf8-4782-9bea-32f852a461de
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Freight YTD' = CALCULATE([Freight], DATESYTD('dim_date'[date_key]))
+		formatString: 0
+		lineageTag: c08ba6a8-2ef7-4b0d-a842-947f1a7a536a
+
+	measure 'Freight YoY %' =
+			
+			VAR cur = [Freight]
+			VAR py  = [Freight PY]
+			RETURN DIVIDE(cur - py, py)
+		lineageTag: e7f0c5c6-b817-4e72-93ca-6b85e2a0b8ee
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Order Count YTD' = CALCULATE([Order Count], DATESYTD('dim_date'[date_key]))
+		formatString: 0
+		lineageTag: f4caaf38-0b39-412b-bfcc-03de94790513
+
+	measure 'Order Count PY' = CALCULATE([Order Count], SAMEPERIODLASTYEAR('dim_date'[date_key]))
+		formatString: 0
+		lineageTag: 6cd28977-df07-4c46-b884-19256c9708d6
+
+	measure 'Order Count YoY %' =
+			
+			VAR cur = [Order Count]
+			VAR py  = [Order Count PY]
+			RETURN DIVIDE(cur - py, py)
+		formatString: 0
+		lineageTag: 38e150b4-1576-492d-8684-84e8d600f6f8
+
+	measure 'Freight PY' = CALCULATE([Freight], SAMEPERIODLASTYEAR('dim_date'[date_key]))
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 790eee2b-14e3-4709-92d0-1180e9ca7ebf
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
 
 	column Value
 		formatString: 0
