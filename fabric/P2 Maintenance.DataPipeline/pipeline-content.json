@@ -1,0 +1,73 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "type": "TridentNotebook",
+        "typeProperties": {
+          "notebookId": "f3791436-45e0-bdca-4f5a-46eb9554c234",
+          "workspaceId": "00000000-0000-0000-0000-000000000000",
+          "parameters": {
+            "table": {
+              "value": "gold.lab_fragmented",
+              "type": "string"
+            }
+          },
+          "sessionTag": "p2maint"
+        },
+        "policy": {
+          "timeout": "0.12:00:00",
+          "retry": 0,
+          "retryIntervalInSeconds": 30,
+          "secureInput": false,
+          "secureOutput": false
+        },
+        "name": "Check Files",
+        "dependsOn": []
+      },
+      {
+        "type": "IfCondition",
+        "typeProperties": {
+          "expression": {
+            "value": "@greater(int(activity('Check Files').output.result.exitValue), 20)",
+            "type": "Expression"
+          },
+          "ifTrueActivities": [
+            {
+              "type": "TridentNotebook",
+              "typeProperties": {
+                "notebookId": "4660d988-85a0-a269-4148-5a4cd143aa31",
+                "workspaceId": "00000000-0000-0000-0000-000000000000",
+                "parameters": {
+                  "table": {
+                    "value": "gold.lab_fragmented",
+                    "type": "string"
+                  }
+                },
+                "sessionTag": "p2maint"
+              },
+              "policy": {
+                "timeout": "0.12:00:00",
+                "retry": 0,
+                "retryIntervalInSeconds": 30,
+                "secureInput": false,
+                "secureOutput": false
+              },
+              "name": "Optimize Table",
+              "dependsOn": []
+            }
+          ],
+          "ifFalseActivities": []
+        },
+        "name": "If too many files",
+        "dependsOn": [
+          {
+            "activity": "Check Files",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
