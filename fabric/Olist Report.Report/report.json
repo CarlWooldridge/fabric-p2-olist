@@ -1,0 +1,63 @@
+{
+  "config": "{\"version\":\"5.77\",\"themeCollection\":{\"baseTheme\":{\"name\":\"Fluent2-CY26SU09\",\"type\":2,\"version\":{\"visual\":\"2.13.0\",\"report\":\"3.4.0\",\"page\":\"2.3.1\"}}},\"activeSectionIndex\":0,\"defaultDrillFilterOtherVisuals\":true,\"linguisticSchemaSyncVersion\":0,\"settings\":{\"useNewFilterPaneExperience\":true,\"allowChangeFilterTypes\":true,\"useStylableVisualContainerHeader\":true,\"queryLimitOption\":6,\"useEnhancedTooltips\":true,\"exportDataMode\":1,\"useDefaultAggregateDisplayName\":true},\"objects\":{\"section\":[{\"properties\":{\"verticalAlignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Top'\"}}}}}],\"outspacePane\":[{\"properties\":{\"expanded\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]}}",
+  "layoutOptimization": 0,
+  "resourcePackages": [
+    {
+      "resourcePackage": {
+        "disabled": false,
+        "items": [
+          {
+            "name": "Fluent2-CY26SU09",
+            "path": "BaseThemes/Fluent2-CY26SU09.json",
+            "type": 202
+          }
+        ],
+        "name": "SharedResources",
+        "type": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "config": "{}",
+      "displayName": "Page 1",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 1080.00,
+      "name": "25992dcee0a9117384d9",
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"9d17136a191106c3920d\",\"layouts\":[{\"id\":0,\"position\":{\"x\":548.9022919179735,\"y\":196.8636911942099,\"z\":1000,\"width\":437.73220747889025,\"height\":215.39203860072377}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"dim_date.year\"},{\"queryRef\":\"_Measures.Customers\"},{\"queryRef\":\"_Measures.Customer Versions\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"_\",\"Entity\":\"_Measures\",\"Type\":0},{\"Name\":\"d\",\"Entity\":\"dim_date\",\"Type\":0}],\"Select\":[{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_\"}},\"Property\":\"Customers\"},\"Name\":\"_Measures.Customers\",\"NativeReferenceName\":\"Customers\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_\"}},\"Property\":\"Customer Versions\"},\"Name\":\"_Measures.Customer Versions\",\"NativeReferenceName\":\"Customer Versions\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"year\"},\"Name\":\"dim_date.year\",\"NativeReferenceName\":\"year\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_\"}},\"Property\":\"Customers\"}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true}}",
+          "filters": "[]",
+          "height": 215.39,
+          "queryBinary": "H4sIAAAAAAAEAK2TS0/DMAzHvwrKOZpaEJce94ADGowNjQOaptAYCFqSKk2Aqup3x07brSDxOOzm+PHPL7Fds4nVWhhZsuyhZitA26v8NoCrpsKL1YsooEthWc1igIw1uFJZw7JTzi6c1bH8WmhgGdsyzmYo4ys6zEGUwUGJzruqwHjS8H2qHKZKpbdSeBhkbjgy7SD3Ub+TovtnHwVqtgjIbYPLYQlPh0PkaBrOFs4W4OIFk1B6q5Gcob+H7flGhygFvXojQXBgcuhyh/XHoznp/vJ3qkPWX3RDvRr7uwva/BdSfoesQLgBV9+iUfT/RNIWYe9unAQ3rmLzpsphH/uZ+QpzxMY2zQZjY2WkMs9UtXBKi3ZoL50NBbrbYcf615aIzglP+SmNW3j01osdy9KoRFuwBBk69Do61vSpSHLGh/L3eKl9J2tig8GRPU+Shkj3y5I29HLIA4nNwTuVl1eKVisl7k8Y/Y/WjgMAAA==",
+          "width": 437.73,
+          "x": 548.90,
+          "y": 196.86,
+          "z": 1000.00
+        },
+        {
+          "config": "{\"name\":\"b85bb60d0a4026d0ad2d\",\"layouts\":[{\"id\":0,\"position\":{\"x\":18.528347406513873,\"y\":196.8636911942099,\"z\":0,\"width\":437.73220747889025,\"height\":215.39203860072377}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"dim_date.month_name\"},{\"queryRef\":\"_Measures.Order Count\"},{\"queryRef\":\"_Measures.Orders Delivered\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"dim_date\",\"Type\":0},{\"Name\":\"_\",\"Entity\":\"_Measures\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"month_name\"},\"Name\":\"dim_date.month_name\",\"NativeReferenceName\":\"Month\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_\"}},\"Property\":\"Order Count\"},\"Name\":\"_Measures.Order Count\",\"NativeReferenceName\":\"Order Count (purchased)\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_\"}},\"Property\":\"Orders Delivered\"},\"Name\":\"_Measures.Orders Delivered\",\"NativeReferenceName\":\"Orders Delivered\"}]},\"columnProperties\":{\"dim_date.month_name\":{\"displayName\":\"Month\"},\"_Measures.Order Count\":{\"displayName\":\"Order Count (purchased)\"}},\"drillFilterOtherVisuals\":true,\"objects\":{\"total\":[{\"properties\":{\"totals\":{\"expr\":{\"Literal\":{\"Value\":\"false\"}}}}}]}}}",
+          "filters": "[{\"name\":\"d05338f4d727873189c3\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"dim_date\"}},\"Property\":\"month_name\"}},\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"dim_date\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"month_name\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'Jan 2018'\"}}],[{\"Literal\":{\"Value\":\"'Feb 2018'\"}}],[{\"Literal\":{\"Value\":\"'Mar 2018'\"}}],[{\"Literal\":{\"Value\":\"'Apr 2018'\"}}]]}}}]},\"type\":\"Categorical\",\"howCreated\":0,\"objects\":{},\"isHiddenInViewMode\":false}]",
+          "height": 215.39,
+          "queryBinary": "H4sIAAAAAAAEAK2U30vDMBDH/5WRlykU6SaC9E23Kf6oPzaZDzJKbE8baZOSJuoY/d+9S+uMwpwPvpTk7tvvfXrJdcVGqiy5zGoWPazYDHBtRHprQS/H3PBZzivoJCxaMZegxRx0LZRk0TBgJ1qV7vUrXgKLWMYCNkEbs6SNKJOMG8DY3bLCdNgEa2XiK5MYeG011J50ESBTAalx/iNV2FJS+cl7hcKWALGV1SlM4elr4zCaJmA3WlWgXYFSSZMnkkpj4hO249vzspQ04pUcQYNModPGJGHE36H+FSX5iXKtM9C9kbLSeCzrDuz5+U00nqa3U2GlnNeQ7f4fX90bQ4GFNWSbIX3Rr6Tf3PBc73MgQHesMhOmAzz7cb71f5881Z7zwgI5o/WlMKB54S41hVHeP+eyNwwHh30n3yA6gcftopjr7aKjyhMtGnwg/rHArshnEt5oUfJ27k61shWG27bgJ77gcHRtCoNBMFy4l2l2p5DZ9LOtFJhTE7HgfuA73mMd9Uar9rpFB2HYUP/WIz7AzeQdUktmMRgt0vpC0A9hQKgfHiSG9kQEAAA=",
+          "width": 437.73,
+          "x": 18.53,
+          "y": 196.86,
+          "z": 0.00
+        },
+        {
+          "config": "{\"name\":\"e72799c5c03109a46ab1\",\"layouts\":[{\"id\":0,\"position\":{\"x\":41.68878166465621,\"y\":479.4209891435464,\"z\":2000,\"width\":919.4692400482509,\"height\":245.5006031363088}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"dim_product.category_display\"},{\"queryRef\":\"_Measures.Orders Containing\"},{\"queryRef\":\"_Measures.Avg Days to Deliver (orders containing)\"},{\"queryRef\":\"_Measures.Order Count\"},{\"queryRef\":\"_Measures.Avg Days to Deliver\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"dim_product\",\"Type\":0},{\"Name\":\"_\",\"Entity\":\"_Measures\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"category_display\"},\"Name\":\"dim_product.category_display\",\"NativeReferenceName\":\"category_display\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_\"}},\"Property\":\"Avg Days to Deliver (orders containing)\"},\"Name\":\"_Measures.Avg Days to Deliver (orders containing)\",\"NativeReferenceName\":\"Avg Days to Deliver (orders containing)\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_\"}},\"Property\":\"Orders Containing\"},\"Name\":\"_Measures.Orders Containing\",\"NativeReferenceName\":\"Orders Containing\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_\"}},\"Property\":\"Order Count\"},\"Name\":\"_Measures.Order Count\",\"NativeReferenceName\":\"Order Count\"},{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_\"}},\"Property\":\"Avg Days to Deliver\"},\"Name\":\"_Measures.Avg Days to Deliver\",\"NativeReferenceName\":\"Avg Days to Deliver\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Measure\":{\"Expression\":{\"SourceRef\":{\"Source\":\"_\"}},\"Property\":\"Orders Containing\"}}}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"columnWidth\":[{\"properties\":{\"value\":{\"expr\":{\"Literal\":{\"Value\":\"152.41014106976752D\"}}}},\"selector\":{\"metadata\":\"_Measures.Avg Days to Deliver (orders containing)\"}}],\"columnHeaders\":[{\"properties\":{}}],\"total\":[{\"properties\":{\"totals\":{\"expr\":{\"Literal\":{\"Value\":\"true\"}}}}}]}}}",
+          "filters": "[]",
+          "height": 245.50,
+          "queryBinary": "H4sIAAAAAAAEALWUy07DMBBFfyXyCiSrailssoO2sECF8hAsUBWZZChGiR05NhBF+XdmkjQttEVBwM6PO3eOHzMFG+kkESrKmP9QsBvAsZXhlQOTj4UVN88ihUbC/IJVGzS4A5NJrZh/wNmp0UkVfiESYD6LGGcTtLE5TWQSpEZHLrS4fJunqOiXvBUH6+JgCiJzBrI16ZwjVgwYTilGOnaJIoLJe4rCGgLJtTMhXMPTalKRlCVnM6NTMFWCUFhYaJMHkczSWOQMt5fUK9DehoxUVr5SAjCgQmiCtvgVrDlEV8jgK+Tx68IbizzzrPbGEGNa4+1pE+GVe6FWVkgl1WJ/jb29t17X2F0H6p779+e8rG1Hre3WE22qdrFv8/sjSjR1yu7ma/a/JWs9/uWHdP0NP3l5RsVXsZ/kVfWNpcFCXNb9Z/R/+A1lOUfNiVQRTTF6ZmQi6gZ0ZrRLcbluXOjzUpPRvM8H/IAP+SH1DvdotRUx8weVG3W1a6Aqb/Bo4Y66ClIN+XqKe0ys32hUv5x/1O+XRN02v0FJtwChI7MpWCPD7FxSqxwQ+wcMc4bLXgUAAA==",
+          "width": 919.47,
+          "x": 41.69,
+          "y": 479.42,
+          "z": 2000.00
+        }
+      ],
+      "width": 1920.00
+    }
+  ]
+}
