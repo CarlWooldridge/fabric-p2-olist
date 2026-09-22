@@ -7,7 +7,7 @@ table dim_seller
 		formatString: 0
 		lineageTag: cfb80d67-ab55-4e78-9378-0462a247d0f7
 		sourceLineageTag: seller_sk
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: seller_sk
 
 		annotation SummarizationSetBy = Automatic
@@ -61,7 +61,7 @@ table dim_seller
 		dataType: double
 		lineageTag: 2b4c178b-cbe3-4f20-a6f4-be620b9182fb
 		sourceLineageTag: seller_lat
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: seller_lat
 
 		annotation SummarizationSetBy = Automatic
@@ -72,7 +72,7 @@ table dim_seller
 		dataType: double
 		lineageTag: 0600cb00-ebb7-4c92-897b-0e9d75914038
 		sourceLineageTag: seller_lng
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: seller_lng
 
 		annotation SummarizationSetBy = Automatic

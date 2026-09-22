@@ -18,4 +18,5 @@ ref table dim_seller
 ref table fact_order_items
 ref table fact_orders
 ref table dim_customer
+ref table _Measures
 

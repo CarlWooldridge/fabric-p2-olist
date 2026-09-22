@@ -1,0 +1,56 @@
+table _Measures
+	lineageTag: 8969a2cf-1045-4399-92bd-412be01f9bc8
+
+	measure 'Order Count' = COUNTROWS('fact_orders')
+		formatString: #,0
+		lineageTag: 840f5be2-d163-48e1-b508-63e56c280b93
+
+	measure 'Orders Delivered' =
+			CALCULATE([Order Count],
+			    USERELATIONSHIP('fact_orders'[delivered_customer_date], 'dim_date'[date_key]))
+		formatString: #,0
+		lineageTag: 0b415c05-393c-4b42-95dd-f534612d5bb0
+
+	measure Customers = CALCULATE(DISTINCTCOUNT('dim_customer'[customer_key]), 'fact_orders')
+		formatString: #,0
+		lineageTag: ef79da20-6e7a-4996-85fe-524a9f329c72
+
+	measure 'Customer Versions' = DISTINCTCOUNT('fact_orders'[customer_sk])
+		formatString: #,0
+		lineageTag: c667f226-add9-4494-b362-a6dc0ab40e24
+
+	measure 'Avg Days to Deliver' = AVERAGE('fact_orders'[days_to_deliver])
+		formatString: #,0.00
+		lineageTag: b2e65cd1-fac0-442a-8b62-bbc88fc0638a
+
+	measure 'Avg Days to Deliver (orders containing)' =
+			
+			CALCULATE([Avg Days to Deliver],
+			    CROSSFILTER('fact_order_items'[order_key], 'fact_orders'[order_key], BOTH))
+		formatString: #,0.00
+		lineageTag: 6d71f089-bc09-41ea-8033-d99ca917d379
+
+	measure 'Orders Containing' = ```
+			
+			CALCULATE([Order Count],
+			    CROSSFILTER('fact_order_items'[order_key], 'fact_orders'[order_key], BOTH))
+			
+			```
+		formatString: #,0
+		lineageTag: e6ae2ee6-fe75-4b66-8a35-0929f41eb947
+
+	column Value
+		formatString: 0
+		lineageTag: 04abdde2-b4bb-4760-ac6a-c71d7f0f0904
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Value]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Measures = calculated
+		mode: import
+		source = {BLANK()}
+
+	annotation PBI_Id = 1310a5eddfb740f7b0ef27ef15bc9ee3
+

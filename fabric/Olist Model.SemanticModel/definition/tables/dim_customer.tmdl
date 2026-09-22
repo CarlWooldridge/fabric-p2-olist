@@ -7,7 +7,7 @@ table dim_customer
 		formatString: 0
 		lineageTag: 26923baf-de4f-49a5-a099-ca8a342d30aa
 		sourceLineageTag: customer_sk
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: customer_sk
 
 		annotation SummarizationSetBy = Automatic
@@ -17,7 +17,7 @@ table dim_customer
 		formatString: 0
 		lineageTag: e1b9b5b8-8cf7-4e6a-bb50-200f2e521a97
 		sourceLineageTag: customer_key
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: customer_key
 
 		annotation SummarizationSetBy = Automatic
@@ -71,7 +71,7 @@ table dim_customer
 		dataType: double
 		lineageTag: 99824d80-3e0a-460e-aa96-6ace6618360e
 		sourceLineageTag: customer_lat
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: customer_lat
 
 		annotation SummarizationSetBy = Automatic
@@ -82,7 +82,7 @@ table dim_customer
 		dataType: double
 		lineageTag: 03d4fc4c-a020-4a55-8d85-61703e860db0
 		sourceLineageTag: customer_lng
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: customer_lng
 
 		annotation SummarizationSetBy = Automatic

@@ -7,7 +7,7 @@ table dim_product
 		formatString: 0
 		lineageTag: 3bf0005c-4dd3-4591-95c4-92a940854215
 		sourceLineageTag: product_sk
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: product_sk
 
 		annotation SummarizationSetBy = Automatic
@@ -53,7 +53,7 @@ table dim_product
 		formatString: 0
 		lineageTag: 48419364-1ce9-4f8e-9b9b-d96aca4b2388
 		sourceLineageTag: product_weight_g
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: product_weight_g
 
 		annotation SummarizationSetBy = Automatic
@@ -63,7 +63,7 @@ table dim_product
 		formatString: 0
 		lineageTag: 39919398-45e4-44dd-9c93-eecff7ee156c
 		sourceLineageTag: product_photos_qty
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: product_photos_qty
 
 		annotation SummarizationSetBy = Automatic

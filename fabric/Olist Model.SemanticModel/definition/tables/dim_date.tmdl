@@ -1,9 +1,11 @@
 table dim_date
 	lineageTag: 628c2d49-58c7-4c4d-8ea5-780f223ceaf4
 	sourceLineageTag: [gold].[dim_date]
+	dataCategory: Time
 
 	column date_key
 		dataType: dateTime
+		isKey
 		formatString: General Date
 		lineageTag: b92b696d-6aee-49b1-b49f-c011dfb9e7be
 		sourceLineageTag: date_key
@@ -17,7 +19,7 @@ table dim_date
 		formatString: 0
 		lineageTag: b97896fe-97f0-43f9-8af0-1e4031e52998
 		sourceLineageTag: year
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: year
 
 		annotation SummarizationSetBy = Automatic
@@ -27,7 +29,7 @@ table dim_date
 		formatString: 0
 		lineageTag: a0b02797-9d9e-4152-b449-21ed812b380a
 		sourceLineageTag: quarter
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: quarter
 
 		annotation SummarizationSetBy = Automatic
@@ -37,7 +39,7 @@ table dim_date
 		formatString: 0
 		lineageTag: d80cfb2e-c4ef-474a-9539-d09febacb016
 		sourceLineageTag: month
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: month
 
 		annotation SummarizationSetBy = Automatic
@@ -47,7 +49,7 @@ table dim_date
 		formatString: 0
 		lineageTag: 6e2fadbc-f1ec-481d-b17b-735dfa42ac4c
 		sourceLineageTag: month_key
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: month_key
 
 		annotation SummarizationSetBy = Automatic
@@ -58,6 +60,9 @@ table dim_date
 		sourceLineageTag: month_name
 		summarizeBy: none
 		sourceColumn: month_name
+		sortByColumn: month_key
+
+		changedProperty = SortByColumn
 
 		annotation SummarizationSetBy = Automatic
 
@@ -66,7 +71,7 @@ table dim_date
 		formatString: 0
 		lineageTag: 2f77c25c-172b-4fd1-a0d2-c863a6d8d0e7
 		sourceLineageTag: day_of_week
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: day_of_week
 
 		annotation SummarizationSetBy = Automatic

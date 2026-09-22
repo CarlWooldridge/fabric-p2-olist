@@ -7,7 +7,7 @@ table fact_order_items
 		formatString: 0
 		lineageTag: 97c4b1fd-1d3f-49de-a8a4-6f7fa6cd6e4f
 		sourceLineageTag: order_key
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: order_key
 
 		annotation SummarizationSetBy = Automatic
@@ -27,7 +27,7 @@ table fact_order_items
 		formatString: 0
 		lineageTag: bb3dc39c-376c-4a86-b2c7-713440bc3819
 		sourceLineageTag: product_sk
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: product_sk
 
 		annotation SummarizationSetBy = Automatic
@@ -37,7 +37,7 @@ table fact_order_items
 		formatString: 0
 		lineageTag: 1499e417-b3a6-4a45-8821-e4cbedf4f502
 		sourceLineageTag: seller_sk
-		summarizeBy: sum
+		summarizeBy: none
 		sourceColumn: seller_sk
 
 		annotation SummarizationSetBy = Automatic
