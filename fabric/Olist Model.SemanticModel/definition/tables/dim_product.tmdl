@@ -1,0 +1,77 @@
+table dim_product
+	lineageTag: 8d693516-0ccf-4500-9290-4fac1df6d048
+	sourceLineageTag: [gold].[dim_product]
+
+	column product_sk
+		dataType: int64
+		formatString: 0
+		lineageTag: 3bf0005c-4dd3-4591-95c4-92a940854215
+		sourceLineageTag: product_sk
+		summarizeBy: sum
+		sourceColumn: product_sk
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_id
+		dataType: string
+		lineageTag: 6cb74f7b-850b-4aa8-b060-d5cf893f7699
+		sourceLineageTag: product_id
+		summarizeBy: none
+		sourceColumn: product_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_name
+		dataType: string
+		lineageTag: 618886a0-5b7e-4f7e-b058-c483fc6e5952
+		sourceLineageTag: product_name
+		summarizeBy: none
+		sourceColumn: product_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column category
+		dataType: string
+		lineageTag: 3e2c5146-5f5d-4f8a-a692-c52dd860a911
+		sourceLineageTag: category
+		summarizeBy: none
+		sourceColumn: category
+
+		annotation SummarizationSetBy = Automatic
+
+	column category_display
+		dataType: string
+		lineageTag: 6cdc6009-fff3-4a66-8e46-8dcb80b235fb
+		sourceLineageTag: category_display
+		summarizeBy: none
+		sourceColumn: category_display
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_weight_g
+		dataType: int64
+		formatString: 0
+		lineageTag: 48419364-1ce9-4f8e-9b9b-d96aca4b2388
+		sourceLineageTag: product_weight_g
+		summarizeBy: sum
+		sourceColumn: product_weight_g
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_photos_qty
+		dataType: int64
+		formatString: 0
+		lineageTag: 39919398-45e4-44dd-9c93-eecff7ee156c
+		sourceLineageTag: product_photos_qty
+		summarizeBy: sum
+		sourceColumn: product_photos_qty
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_product = entity
+		mode: directLake
+		source
+			entityName: dim_product
+			schemaName: gold
+			expressionSource: 'DirectLake - OlistLH'
+

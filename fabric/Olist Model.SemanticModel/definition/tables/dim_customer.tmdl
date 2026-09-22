@@ -1,0 +1,128 @@
+table dim_customer
+	lineageTag: 24325d15-7220-40ca-95b5-0824c772ad68
+	sourceLineageTag: [gold].[dim_customer]
+
+	column customer_sk
+		dataType: int64
+		formatString: 0
+		lineageTag: 26923baf-de4f-49a5-a099-ca8a342d30aa
+		sourceLineageTag: customer_sk
+		summarizeBy: sum
+		sourceColumn: customer_sk
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_key
+		dataType: int64
+		formatString: 0
+		lineageTag: e1b9b5b8-8cf7-4e6a-bb50-200f2e521a97
+		sourceLineageTag: customer_key
+		summarizeBy: sum
+		sourceColumn: customer_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_unique_id
+		dataType: string
+		lineageTag: 0d2ac602-62d2-464c-9c43-ff75a391d48b
+		sourceLineageTag: customer_unique_id
+		summarizeBy: none
+		sourceColumn: customer_unique_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_name
+		dataType: string
+		lineageTag: 8faf4fac-b069-46aa-a506-75ac5bfeb5c1
+		sourceLineageTag: customer_name
+		summarizeBy: none
+		sourceColumn: customer_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_zip_prefix
+		dataType: string
+		lineageTag: c84a1d29-9ae2-455d-b075-f7bbaeeb09bb
+		sourceLineageTag: customer_zip_prefix
+		summarizeBy: none
+		sourceColumn: customer_zip_prefix
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_city
+		dataType: string
+		lineageTag: 80257c2c-c135-4b43-9d64-393772a2f94f
+		sourceLineageTag: customer_city
+		summarizeBy: none
+		sourceColumn: customer_city
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_state
+		dataType: string
+		lineageTag: b7fa3ea9-2ef1-4c7f-a9ba-6520a0e18631
+		sourceLineageTag: customer_state
+		summarizeBy: none
+		sourceColumn: customer_state
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_lat
+		dataType: double
+		lineageTag: 99824d80-3e0a-460e-aa96-6ace6618360e
+		sourceLineageTag: customer_lat
+		summarizeBy: sum
+		sourceColumn: customer_lat
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column customer_lng
+		dataType: double
+		lineageTag: 03d4fc4c-a020-4a55-8d85-61703e860db0
+		sourceLineageTag: customer_lng
+		summarizeBy: sum
+		sourceColumn: customer_lng
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column valid_from
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: e1872bf9-bf4f-4cc2-bf5f-c759144e76c0
+		sourceLineageTag: valid_from
+		summarizeBy: none
+		sourceColumn: valid_from
+
+		annotation SummarizationSetBy = Automatic
+
+	column valid_to
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 2cd4f325-e8fe-49ac-81cc-c79313d2cdfd
+		sourceLineageTag: valid_to
+		summarizeBy: none
+		sourceColumn: valid_to
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_current
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 535f1089-6740-45ae-958d-ce1466f294b8
+		sourceLineageTag: is_current
+		summarizeBy: none
+		sourceColumn: is_current
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_customer = entity
+		mode: directLake
+		source
+			entityName: dim_customer
+			schemaName: gold
+			expressionSource: 'DirectLake - OlistLH'
+

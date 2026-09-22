@@ -1,0 +1,106 @@
+table fact_order_items
+	lineageTag: 1984d6a4-f2bb-43dc-8002-fbabf1e3766b
+	sourceLineageTag: [gold].[fact_order_items]
+
+	column order_key
+		dataType: int64
+		formatString: 0
+		lineageTag: 97c4b1fd-1d3f-49de-a8a4-6f7fa6cd6e4f
+		sourceLineageTag: order_key
+		summarizeBy: sum
+		sourceColumn: order_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_item_id
+		dataType: int64
+		formatString: 0
+		lineageTag: f889626d-158f-47c1-bcbe-68ae3afff26d
+		sourceLineageTag: order_item_id
+		summarizeBy: sum
+		sourceColumn: order_item_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column product_sk
+		dataType: int64
+		formatString: 0
+		lineageTag: bb3dc39c-376c-4a86-b2c7-713440bc3819
+		sourceLineageTag: product_sk
+		summarizeBy: sum
+		sourceColumn: product_sk
+
+		annotation SummarizationSetBy = Automatic
+
+	column seller_sk
+		dataType: int64
+		formatString: 0
+		lineageTag: 1499e417-b3a6-4a45-8821-e4cbedf4f502
+		sourceLineageTag: seller_sk
+		summarizeBy: sum
+		sourceColumn: seller_sk
+
+		annotation SummarizationSetBy = Automatic
+
+	column shipping_limit_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 9fc401af-d73b-4779-9028-283465fb4a53
+		sourceLineageTag: shipping_limit_date
+		summarizeBy: none
+		sourceColumn: shipping_limit_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column price
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: f6a78245-4be8-4f0c-bbba-ce8172423104
+		sourceLineageTag: price
+		summarizeBy: sum
+		sourceColumn: price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column freight_value
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 6c766b70-818a-496f-90cd-0447b0853230
+		sourceLineageTag: freight_value
+		summarizeBy: sum
+		sourceColumn: freight_value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	column distance_km
+		dataType: double
+		lineageTag: 09b49abd-7026-4964-b39d-2fcd34d6ca86
+		sourceLineageTag: distance_km
+		summarizeBy: sum
+		sourceColumn: distance_km
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column is_same_state
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: d1991a39-a45c-42c2-9912-78b004f1880f
+		sourceLineageTag: is_same_state
+		summarizeBy: none
+		sourceColumn: is_same_state
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_order_items = entity
+		mode: directLake
+		source
+			entityName: fact_order_items
+			schemaName: gold
+			expressionSource: 'DirectLake - OlistLH'
+
