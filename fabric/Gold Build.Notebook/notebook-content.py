@@ -195,3 +195,30 @@ print("header keys unique:", fo.count() == fo.select("order_key").distinct().cou
 # META   "language": "python",
 # META   "language_group": "synapse_pyspark"
 # META }
+
+# CELL ********************
+
+# Payment types: a tiny dimension, keyed like the others (keys kept across runs)
+pt = spark.table("silver.order_payments").select("payment_type").distinct()
+save(with_unknown(
+        keyed(pt, "payment_type", "payment_type_sk", "dim_payment_type")
+        .select("payment_type_sk", "payment_type"),
+        "payment_type_sk", payment_type="Unknown"), "dim_payment_type")
+
+# The bridge: one row per payment. It carries the payment's own attributes (value, installments) —
+# that's what a bridge can do and a bare many-to-many relationship can't.
+ptk = spark.table("gold.dim_payment_type").select("payment_type", "payment_type_sk")
+save(spark.table("silver.order_payments")
+        .join(spark.table("gold.key_order"), "order_id")
+        .join(ptk, "payment_type", "left")
+        .select("order_key", "payment_sequential",
+                F.coalesce("payment_type_sk", F.lit(-1)).cast("int").alias("payment_type_sk"),
+                "payment_installments", "payment_value"),
+     "bridge_order_payment")
+
+# METADATA ********************
+
+# META {
+# META   "language": "python",
+# META   "language_group": "synapse_pyspark"
+# META }
