@@ -11,7 +11,7 @@ annotation __PBI_TimeIntelligenceEnabled = 1
 
 annotation PBI_QueryOrder = ["DirectLake - OlistLH","LakehousePath"]
 
-annotation PBI_ProTooling = ["DirectLakeOnOneLakeInWeb","WebModelingEdit","DaxQueryView_Desktop","CalcGroup"]
+annotation PBI_ProTooling = ["DirectLakeOnOneLakeInWeb","WebModelingEdit","DaxQueryView_Desktop","CalcGroup","RemoteModeling"]
 
 ref table dim_product
 ref table dim_date
@@ -23,4 +23,6 @@ ref table _Measures
 ref table dim_payment_type
 ref table bridge_order_payment
 ref table 'Time Intelligence'
+ref table measure
+ref table dimension
 

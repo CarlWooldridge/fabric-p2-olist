@@ -1,0 +1,49 @@
+table measure
+	lineageTag: 4cdcb4c2-c9be-4d40-8b71-e23cc4ed0beb
+
+	column measure
+		lineageTag: cb3af02b-4b88-477d-999a-c8985eff26ce
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'measure Order'
+
+		relatedColumnDetails
+			groupByColumn: 'measure Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'measure Fields'
+		isHidden
+		lineageTag: 4ee02628-af5b-4f2a-a422-0debb3868459
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'measure Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'measure Order'
+		isHidden
+		formatString: 0
+		lineageTag: 978eef81-acdc-45d5-8b95-3b9936016d8a
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition measure = calculated
+		mode: import
+		source =
+				{
+				    ("Revenue", NAMEOF('_Measures'[Revenue]), 0),
+				    ("Freight", NAMEOF('_Measures'[Freight]), 1),
+				    ("Order Count", NAMEOF('_Measures'[Order Count]), 2)
+				}
+
+	annotation PBI_Id = c5751170a6c340d2b98a96194304cd49
+
