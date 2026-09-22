@@ -39,6 +39,41 @@ table _Measures
 		formatString: #,0
 		lineageTag: e6ae2ee6-fe75-4b66-8a35-0929f41eb947
 
+	measure Revenue = SUM('fact_order_items'[price])
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: d2efcc91-bdcd-4b9e-b989-c3277a7f1188
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Payment Value' = SUM('bridge_order_payment'[payment_value])
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: b71053b0-6daf-47be-8f74-dab4194e110a
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Orders by Payment Type' = ```
+			
+			CALCULATE([Order Count],
+			    CROSSFILTER('bridge_order_payment'[order_key], 'fact_orders'[order_key], BOTH))
+			
+			```
+		formatString: #,0
+		lineageTag: c9e7a6fa-d5c3-4522-9c10-13e6f239eba1
+
+	measure 'Revenue by Payment Type' =
+			
+			CALCULATE([Revenue],
+			    CROSSFILTER('bridge_order_payment'[order_key], 'fact_orders'[order_key], BOTH))
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		lineageTag: 4f040ec2-0f54-44b6-a7a4-756598a1ba0f
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Avg Review via Bridge' =
+			
+			AVERAGEX('bridge_order_payment', RELATED('fact_orders'[review_score]))
+		lineageTag: a450a1ae-e91d-4f63-9c95-4e3b6e66d630
+
 	column Value
 		formatString: 0
 		lineageTag: 04abdde2-b4bb-4760-ac6a-c71d7f0f0904

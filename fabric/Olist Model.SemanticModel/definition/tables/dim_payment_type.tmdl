@@ -1,0 +1,30 @@
+table dim_payment_type
+	lineageTag: ea5bddee-ec50-4156-babc-940603c9cad8
+	sourceLineageTag: [gold].[dim_payment_type]
+
+	column payment_type_sk
+		dataType: int64
+		formatString: 0
+		lineageTag: a64d93e1-4d64-40a5-9af1-21a87533a553
+		sourceLineageTag: payment_type_sk
+		summarizeBy: none
+		sourceColumn: payment_type_sk
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_type
+		dataType: string
+		lineageTag: ffbb8de0-ce0f-4e87-9da3-2220dc9e2f86
+		sourceLineageTag: payment_type
+		summarizeBy: none
+		sourceColumn: payment_type
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_payment_type = entity
+		mode: directLake
+		source
+			entityName: dim_payment_type
+			schemaName: gold
+			expressionSource: 'DirectLake - OlistLH'
+

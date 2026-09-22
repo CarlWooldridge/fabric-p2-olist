@@ -28,3 +28,11 @@ relationship b149eb82-15b7-479c-922b-6c39dacb12a0
 	fromColumn: fact_order_items.order_key
 	toColumn: fact_orders.order_key
 
+relationship e416de4c-4ce1-e41a-b721-ed2cf6cf0f4b
+	fromColumn: bridge_order_payment.payment_type_sk
+	toColumn: dim_payment_type.payment_type_sk
+
+relationship 85c18b7b-b784-daef-3d36-5dff4ffa29b2
+	fromColumn: bridge_order_payment.order_key
+	toColumn: fact_orders.order_key
+

@@ -8,7 +8,7 @@ model Model
 
 annotation __PBI_TimeIntelligenceEnabled = 1
 
-annotation PBI_QueryOrder = ["DirectLake - OlistLH"]
+annotation PBI_QueryOrder = ["DirectLake - OlistLH","LakehousePath"]
 
 annotation PBI_ProTooling = ["DirectLakeOnOneLakeInWeb","WebModelingEdit","DaxQueryView_Desktop"]
 
@@ -19,4 +19,6 @@ ref table fact_order_items
 ref table fact_orders
 ref table dim_customer
 ref table _Measures
+ref table dim_payment_type
+ref table bridge_order_payment
 
