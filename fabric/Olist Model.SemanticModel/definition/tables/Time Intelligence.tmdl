@@ -16,6 +16,8 @@ table 'Time Intelligence'
 				VAR py  = CALCULATE(SELECTEDMEASURE(),SAMEPERIODLASTYEAR('dim_date'[date_key]))
 				RETURN DIVIDE(cur - py, py)
 
+			formatStringDefinition = "0.0%"
+
 	column Period
 		dataType: string
 		lineageTag: 52dcaf2e-bc0d-4fa2-8f03-43d40ddec25f
