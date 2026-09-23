@@ -256,6 +256,78 @@ table _Measures
 		displayFolder: Window function
 		lineageTag: 33700769-1d06-4e49-a2b3-da02cb165962
 
+	measure 'Selected State' = ```
+			SELECTEDVALUE('dim_seller'[seller_state], "All states")
+			
+			```
+		displayFolder: Information functions
+		lineageTag: e98d3097-6e77-4045-a321-38778e62f886
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Is Filtered' = ISFILTERED('dim_seller'[seller_state])
+		displayFolder: Information functions
+		lineageTag: e0ec61e5-880f-43fe-a3cf-8db6710be50c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Is Cross' = ISCROSSFILTERED('dim_seller'[seller_state])
+		displayFolder: Information functions
+		lineageTag: cf5294ad-86e8-47e0-aa99-776d8ffda9d2
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Lines Crossed' = ```
+			ISCROSSFILTERED('fact_order_items')
+			
+			```
+		displayFolder: Information functions
+		lineageTag: bb7e3846-def5-4906-b791-a20454f55d1e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Has One Value' = HASONEVALUE('dim_product'[category_display])
+		displayFolder: Information functions
+		lineageTag: b5d3432e-0e75-436d-adc8-669fe5ddacf7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'State In Scope' = ISINSCOPE('dim_seller'[seller_state])
+		displayFolder: Information functions
+		lineageTag: c3715ce4-bbdd-4ef9-ab48-e5d44955532d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'City In Scope' = ```
+			ISINSCOPE('dim_seller'[seller_city])
+			
+			```
+		displayFolder: Information functions
+		lineageTag: 813c599a-5360-4ebc-9305-50c861d601cd
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Categories Sold' = CALCULATE(DISTINCTCOUNT('dim_product'[category_display]), 'fact_order_items')
+		displayFolder: Category
+		lineageTag: 6d8895ce-5810-4157-b449-b23234c6ae39
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Has One Category' = CALCULATE(HASONEVALUE('dim_product'[category_display]), 'fact_order_items')
+		displayFolder: Category
+		lineageTag: 37295aaf-152c-4bf7-857c-df2bb8063b3b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Only Category' = ```
+			CALCULATE(SELECTEDVALUE('dim_product'[category_display], "several"), 'fact_order_items')
+			
+			```
+		displayFolder: Category
+		lineageTag: 3291e0a7-7eb1-4510-9960-6b35156a26e6
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	column Value
 		formatString: 0
 		lineageTag: 04abdde2-b4bb-4760-ac6a-c71d7f0f0904
