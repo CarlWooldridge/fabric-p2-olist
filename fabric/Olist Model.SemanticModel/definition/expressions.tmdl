@@ -1,6 +1,6 @@
 expression 'DirectLake - OlistLH' =
 		let
-		    Source = AzureStorage.DataLake(LakehousePath, [HierarchicalNavigation=true])
+		    Source = AzureStorage.DataLake("https://onelake.dfs.fabric.microsoft.com/<p2-olist-workspace-id>/<olistlh-lakehouse-id>", [HierarchicalNavigation=true])
 		in
 		    Source
 	lineageTag: 6e3b0c8b-43e5-4ce7-bf89-9ec3f1d68b3f
