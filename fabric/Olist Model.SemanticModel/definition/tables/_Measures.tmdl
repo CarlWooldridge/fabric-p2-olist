@@ -149,7 +149,8 @@ table _Measures
 
 	measure 'Revenue Rank' =
 			
-			RANK(DENSE, ALLSELECTED('dim_seller'[seller_state]), ORDERBY([Revenue], DESC))
+			IF(NOT ISBLANK([Revenue]),
+			    RANK(DENSE, ALLSELECTED('dim_seller'[seller_state]), ORDERBY([Revenue], DESC)))
 		displayFolder: Revenue
 		lineageTag: f2888fb7-9b40-4773-ae0e-1c7510019e9c
 
@@ -183,6 +184,77 @@ table _Measures
 		lineageTag: 97077985-4d66-4320-a469-13b3ab96657f
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Revenue vs Prev Month (PREVIOUSMONTH)' =
+			
+			[Revenue] - CALCULATE([Revenue], PREVIOUSMONTH('dim_date'[date_key]))
+		displayFolder: Revenue
+		lineageTag: 5a5bc604-6a5a-4d6a-bb2c-a49813bdfb33
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Revenue vs Prev Month (DATEADD)' =
+			
+			[Revenue] - CALCULATE([Revenue], DATEADD('dim_date'[date_key], -1, MONTH))
+		displayFolder: Revenue
+		lineageTag: fd92f0d6-5c9d-4e3a-80d3-a4611a33cc0f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Revenue 3mo Moving Avg (DATESINPERIOD)' =
+			
+			AVERAGEX(
+			    CALCULATETABLE(VALUES('dim_date'[month_key]),
+			        DATESINPERIOD('dim_date'[date_key], MAX('dim_date'[date_key]), -3, MONTH)),
+			    [Revenue])
+		displayFolder: Revenue
+		lineageTag: 5bc9140f-793f-42a1-8110-fc9c1a33ee89
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'First Month Revenue (FIRSTNONBLANK)' = ```
+			
+			VAR firstMonth = FIRSTNONBLANK(ALLSELECTED('dim_date'[month_key]), [Revenue])
+			RETURN CALCULATE([Revenue], 'dim_date'[month_key] = firstMonth)
+			
+			```
+		displayFolder: Revenue
+		lineageTag: 6d036815-2c1c-4c60-aa7f-1fb098f7a06d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Gap to State Above' =
+			
+			IF(ISINSCOPE('dim_seller'[seller_state]) && NOT ISBLANK([Revenue]),
+			    VAR above = CALCULATE([Revenue],
+			        OFFSET(-1, ALLSELECTED('dim_seller'[seller_state]), ORDERBY([Revenue], DESC)))
+			    RETURN IF(NOT ISBLANK(above), above - [Revenue]))
+		displayFolder: Window function
+		lineageTag: dabfb25e-01f5-4c25-8c1f-3797f27cb0a6
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Cumulative Revenue %' =
+			
+			IF(ISINSCOPE('dim_seller'[seller_state]) && NOT ISBLANK([Revenue]),
+			    DIVIDE(
+			        CALCULATE([Revenue],
+			            WINDOW(1, ABS, 0, REL, ALLSELECTED('dim_seller'[seller_state]), ORDERBY([Revenue], DESC))),
+			        CALCULATE([Revenue], ALLSELECTED('dim_seller'[seller_state]))))
+		formatString: #,0.0%;-#,0.0%;#,0.0%
+		displayFolder: Window function
+		lineageTag: 52cbbc7a-820d-4455-b580-88f4eaf89c1c
+
+	measure '% of Top State' = ```
+			
+			IF(ISINSCOPE('dim_seller'[seller_state]) && NOT ISBLANK([Revenue]),
+			    DIVIDE([Revenue],
+			        CALCULATE([Revenue], INDEX(1, ALLSELECTED('dim_seller'[seller_state]), ORDERBY([Revenue], DESC)))))
+			
+			```
+		formatString: #,0.0%;-#,0.0%;#,0.0%
+		displayFolder: Window function
+		lineageTag: 33700769-1d06-4e49-a2b3-da02cb165962
 
 	column Value
 		formatString: 0
