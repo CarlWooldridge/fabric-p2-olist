@@ -13,6 +13,8 @@ annotation PBI_QueryOrder = ["DirectLake - OlistLH","LakehousePath"]
 
 annotation PBI_ProTooling = ["DirectLakeOnOneLakeInWeb","WebModelingEdit","DaxQueryView_Desktop","CalcGroup","RemoteModeling"]
 
+annotation __TEdtr = 1
+
 ref table dim_product
 ref table dim_date
 ref table dim_seller
