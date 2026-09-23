@@ -4,9 +4,9 @@ table 'Time Intelligence'
 	calculationGroup
 		precedence: 10
 
-		calculationItem Current = SELECTEDMEASURE()
+		calculationItem Measure = SELECTEDMEASURENAME()
 
-		calculationItem YTD = CALCULATE(SELECTEDMEASURE(), DATESYTD('dim_date'[date_key]))
+		calculationItem Current = SELECTEDMEASURE()
 
 		calculationItem PY = CALCULATE(SELECTEDMEASURE(), SAMEPERIODLASTYEAR('dim_date'[date_key]))
 
@@ -17,6 +17,8 @@ table 'Time Intelligence'
 				RETURN DIVIDE(cur - py, py)
 
 			formatStringDefinition = "0.0%"
+
+		calculationItem YTD = CALCULATE(SELECTEDMEASURE(), DATESYTD('dim_date'[date_key]))
 
 	column Period
 		dataType: string
