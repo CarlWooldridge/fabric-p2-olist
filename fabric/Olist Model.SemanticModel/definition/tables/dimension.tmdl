@@ -41,8 +41,9 @@ table dimension
 		source =
 				{
 				    ("Customer State", NAMEOF('dim_customer'[customer_state]), 0),
-				    ("Order Status", NAMEOF('fact_orders'[order_status]), 1),
-				    ("Year", NAMEOF('dim_date'[year]), 2)
+				    ("Customer Name", NAMEOF('dim_customer'[customer_name]), 1),
+				    ("Order Status", NAMEOF('fact_orders'[order_status]), 2),
+				    ("Year", NAMEOF('dim_date'[year]), 3)
 				}
 
 	annotation PBI_Id = c1ce32bb42fc4dfa84ebdcfbbfe480c0
