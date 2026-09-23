@@ -328,6 +328,57 @@ table _Measures
 
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
+	measure 'Bad Filter' =
+			CALCULATE([Revenue], FILTER('fact_order_items', RELATED('dim_seller'[seller_state]) = "SP"))
+			-- Wrong: filters the fact table, materializes a huge tableBad
+		displayFolder: Table filtering
+		lineageTag: f520edd7-cfb3-4440-bb5c-ea4313f048bb
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Good Filter' =
+			CALCULATE([Revenue], 'dim_seller'[seller_state] = "SP")
+			-- Right: filters the dimension
+		displayFolder: Table filtering
+		lineageTag: e843f86c-ae64-4f32-acee-11b50cc8990d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Bad Filter (measure)' = CALCULATE([Revenue], FILTER('fact_order_items', [Revenue] > 100))
+		displayFolder: Table filtering
+		lineageTag: a9e1bf79-e6a4-48f4-883f-67459181e936
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Good Filter (column)' = CALCULATE([Revenue], 'fact_order_items'[price] > 100)
+		displayFolder: Table filtering
+		lineageTag: 1ef3a9ee-c33f-46a9-be1c-054c24218b6a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Freight Ratio' = DIVIDE([Freight], [Revenue])
+		displayFolder: Iterator performance
+		lineageTag: 0a9fdd20-ade6-4e53-9df6-da464173e455
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Slow Iterate' = ```
+			SUMX('fact_order_items', [Freight Ratio])
+			
+			```
+		displayFolder: Iterator performance
+		lineageTag: acdbd037-8c8b-4caa-925b-668075c213b4
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Fast Iterate' =
+			SUMX('fact_order_items',
+			            DIVIDE('fact_order_items'[freight_value], 'fact_order_items'[price]))
+		displayFolder: Iterator performance
+		lineageTag: eec8e333-7470-40fa-bf74-878c454ce9ba
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
 	column Value
 		formatString: 0
 		lineageTag: 04abdde2-b4bb-4760-ac6a-c71d7f0f0904
