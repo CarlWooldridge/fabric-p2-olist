@@ -1,22 +1,29 @@
 table rls_user_state
+	isHidden
 	lineageTag: 741876f1-204b-471e-9126-7df3907c6b3f
 	sourceLineageTag: [gold].[rls_user_state]
 
 	column user_principal
 		dataType: string
+		isHidden
 		lineageTag: 995d0af4-f888-46a4-b8fc-eef9200d6d7f
 		sourceLineageTag: user_principal
 		summarizeBy: none
 		sourceColumn: user_principal
 
+		changedProperty = IsHidden
+
 		annotation SummarizationSetBy = Automatic
 
 	column customer_state
 		dataType: string
+		isHidden
 		lineageTag: 3d69e5ba-9118-4620-a89a-a66ecb8a219c
 		sourceLineageTag: customer_state
 		summarizeBy: none
 		sourceColumn: customer_state
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -26,4 +33,6 @@ table rls_user_state
 			entityName: rls_user_state
 			schemaName: gold
 			expressionSource: 'DirectLake - OlistLH'
+
+	changedProperty = IsHidden
 

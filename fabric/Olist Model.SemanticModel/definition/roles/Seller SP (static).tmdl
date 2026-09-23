@@ -1,0 +1,7 @@
+role 'Seller SP (static)'
+	modelPermission: read
+
+	tablePermission dim_seller = [seller_state] == "SP"
+
+	annotation PBI_Id = 0c61e591138b417ea40e6134942ac037
+

@@ -27,3 +27,6 @@ ref table measure
 ref table dimension
 ref table rls_user_state
 
+ref role 'Seller SP (static)'
+ref role 'Customer State (dynamic)'
+
