@@ -1,0 +1,237 @@
+table 'gold fact_orders'
+	lineageTag: 6c0bc1f8-8b4e-4960-b1fd-c31e4ba92bf6
+
+	refreshPolicy
+		policyType: basic
+		rollingWindowGranularity: year
+		rollingWindowPeriods: 11
+		incrementalGranularity: month
+		incrementalPeriods: 12
+		sourceExpression =
+			let
+			    Source = Sql.Database("<sql-endpoint>.datawarehouse.fabric.microsoft.com", "OlistLH"),
+			    gold_fact_orders = Source{[Schema="gold",Item="fact_orders"]}[Data],
+			    #"Filtered Rows" = Table.SelectRows(gold_fact_orders, each [purchase_date] >= Date.From(RangeStart) and [purchase_date] <  Date.From(RangeEnd))
+			in
+			    #"Filtered Rows"
+
+	column order_key
+		dataType: int64
+		formatString: 0
+		lineageTag: 6094bb77-1341-4c19-8a2a-59ac89046533
+		summarizeBy: sum
+		sourceColumn: order_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_sk
+		dataType: int64
+		formatString: 0
+		lineageTag: 76f3cd33-ede6-4f2e-a749-8a3d8c7dc09b
+		summarizeBy: sum
+		sourceColumn: customer_sk
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_status
+		dataType: string
+		lineageTag: 798b75b9-89de-4ef5-b882-a11754aafff9
+		summarizeBy: none
+		sourceColumn: order_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column purchase_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: c7225eff-0c11-45e0-b95f-f7cc3247d9a4
+		summarizeBy: none
+		sourceColumn: purchase_date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column purchase_hour
+		dataType: int64
+		formatString: 0
+		lineageTag: d546663b-19fd-4941-a860-f1e5c2a93a8e
+		summarizeBy: sum
+		sourceColumn: purchase_hour
+
+		annotation SummarizationSetBy = Automatic
+
+	column approved_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: a0553f52-c9cf-4331-b9f4-fd3a6a0d28b3
+		summarizeBy: none
+		sourceColumn: approved_date
+
+		variation Variation
+			isDefault
+			relationship: 4223eb91-cd25-4cc0-99db-0a166151310b
+			defaultHierarchy: LocalDateTable_671f196c-3d22-4bab-88b2-77250fa6e923.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column delivered_carrier_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: f1bb1e3d-854e-4122-98f0-890daba506ca
+		summarizeBy: none
+		sourceColumn: delivered_carrier_date
+
+		variation Variation
+			isDefault
+			relationship: 646e2c7e-2833-492b-9cb7-d2b58de2b3b6
+			defaultHierarchy: LocalDateTable_8bc6c845-dba6-42e4-9258-b22d9ac5f0ac.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column delivered_customer_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: c225fe97-8d34-47eb-a978-cc5dfe44c38c
+		summarizeBy: none
+		sourceColumn: delivered_customer_date
+
+		variation Variation
+			isDefault
+			relationship: 415f7700-90fc-4465-a64a-4ba5845cba5e
+			defaultHierarchy: LocalDateTable_8247c3cb-77e2-42bc-b4fd-0e8a1a4f9286.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column estimated_delivery_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: cb7250f3-0b41-47f3-ba82-d7dcd6ec9f6d
+		summarizeBy: none
+		sourceColumn: estimated_delivery_date
+
+		variation Variation
+			isDefault
+			relationship: c3052329-9b78-4467-9a8f-edd94ef34601
+			defaultHierarchy: LocalDateTable_04374821-5810-4c34-82c5-838fba08ac35.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column days_to_approve
+		dataType: int64
+		formatString: 0
+		lineageTag: ffa3b1cb-e27b-47ca-846f-87ec0506f425
+		summarizeBy: sum
+		sourceColumn: days_to_approve
+
+		annotation SummarizationSetBy = Automatic
+
+	column days_to_deliver
+		dataType: int64
+		formatString: 0
+		lineageTag: 9796e683-6cd2-4a76-9993-b038a0cbcf95
+		summarizeBy: sum
+		sourceColumn: days_to_deliver
+
+		annotation SummarizationSetBy = Automatic
+
+	column days_vs_estimate
+		dataType: int64
+		formatString: 0
+		lineageTag: 94a8856f-ba9e-4f36-af4c-3eb2b8c936f5
+		summarizeBy: sum
+		sourceColumn: days_vs_estimate
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_late
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 30a86ad8-724e-48b5-9633-93573d8f7f12
+		summarizeBy: none
+		sourceColumn: is_late
+
+		annotation SummarizationSetBy = Automatic
+
+	column item_count
+		dataType: int64
+		formatString: 0
+		lineageTag: 2f22ed56-588f-4b22-b005-d34c2e800451
+		summarizeBy: sum
+		sourceColumn: item_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column items_value
+		dataType: double
+		lineageTag: a4612641-4456-4858-a14d-f5035e12e2b6
+		summarizeBy: sum
+		sourceColumn: items_value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column freight_total
+		dataType: double
+		lineageTag: 06d2ed94-aa7a-4bf0-879a-9650a330a1ff
+		summarizeBy: sum
+		sourceColumn: freight_total
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column payment_total
+		dataType: double
+		lineageTag: 31ed4687-d9fe-469f-acff-b0f66958ce73
+		summarizeBy: sum
+		sourceColumn: payment_total
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column payment_installments
+		dataType: int64
+		formatString: 0
+		lineageTag: df8327b4-bab5-465e-be98-91d298dddcc1
+		summarizeBy: sum
+		sourceColumn: payment_installments
+
+		annotation SummarizationSetBy = Automatic
+
+	column review_score
+		dataType: double
+		lineageTag: 14d8fb03-bd26-4aa0-a4f7-ed8114097312
+		summarizeBy: sum
+		sourceColumn: review_score
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition 'gold fact_orders' = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("<sql-endpoint>.datawarehouse.fabric.microsoft.com", "OlistLH"),
+				    gold_fact_orders = Source{[Schema="gold",Item="fact_orders"]}[Data],
+				    #"Filtered Rows" = Table.SelectRows(gold_fact_orders, each [purchase_date] >= Date.From(RangeStart) and [purchase_date] <  Date.From(RangeEnd))
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_IsMQueryFoldable = True
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

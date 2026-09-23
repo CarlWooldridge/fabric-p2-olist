@@ -1,0 +1,29 @@
+relationship 4223eb91-cd25-4cc0-99db-0a166151310b
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'gold fact_orders'.approved_date
+	toColumn: LocalDateTable_671f196c-3d22-4bab-88b2-77250fa6e923.Date
+
+relationship 646e2c7e-2833-492b-9cb7-d2b58de2b3b6
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'gold fact_orders'.delivered_carrier_date
+	toColumn: LocalDateTable_8bc6c845-dba6-42e4-9258-b22d9ac5f0ac.Date
+
+relationship 415f7700-90fc-4465-a64a-4ba5845cba5e
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'gold fact_orders'.delivered_customer_date
+	toColumn: LocalDateTable_8247c3cb-77e2-42bc-b4fd-0e8a1a4f9286.Date
+
+relationship c3052329-9b78-4467-9a8f-edd94ef34601
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'gold fact_orders'.estimated_delivery_date
+	toColumn: LocalDateTable_04374821-5810-4c34-82c5-838fba08ac35.Date
+
+relationship d2ec463d-d129-4b86-b7b6-67f821ef2c99
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'gold dim_date'.date_key
+	toColumn: LocalDateTable_b8b5403b-9df4-4716-9a7f-be8a694413c7.Date
+
+relationship 0956cdf6-fbc1-c429-7abd-198978bce788
+	fromColumn: 'gold fact_orders'.purchase_date
+	toColumn: 'gold dim_date'.date_key
+

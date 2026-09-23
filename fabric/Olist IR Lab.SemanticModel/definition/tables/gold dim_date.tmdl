@@ -1,0 +1,102 @@
+table 'gold dim_date'
+	lineageTag: 1d615680-0a09-4196-9d42-940147a5ffda
+
+	column date_key
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: acc887ec-b59d-412a-8b9c-a11b3caf8df1
+		summarizeBy: none
+		sourceColumn: date_key
+
+		variation Variation
+			isDefault
+			relationship: d2ec463d-d129-4b86-b7b6-67f821ef2c99
+			defaultHierarchy: LocalDateTable_b8b5403b-9df4-4716-9a7f-be8a694413c7.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: 18e43999-2ba7-4311-8ea4-0a6a12aeb887
+		summarizeBy: sum
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column quarter
+		dataType: int64
+		formatString: 0
+		lineageTag: 99ecb55c-7f75-4797-9450-1725bf9907a9
+		summarizeBy: sum
+		sourceColumn: quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column month
+		dataType: int64
+		formatString: 0
+		lineageTag: 51718057-9140-49a4-8c8b-4a3277e194d8
+		summarizeBy: sum
+		sourceColumn: month
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_key
+		dataType: int64
+		formatString: 0
+		lineageTag: 2d0d27ec-04bd-4920-8879-ccd3c46e58a2
+		summarizeBy: sum
+		sourceColumn: month_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_name
+		dataType: string
+		lineageTag: 310fabe0-0ffa-493d-aa70-1c7902f9c3d1
+		summarizeBy: none
+		sourceColumn: month_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column day_of_week
+		dataType: int64
+		formatString: 0
+		lineageTag: 5b99bd40-4d1a-4810-a168-59cdd3bd0870
+		summarizeBy: sum
+		sourceColumn: day_of_week
+
+		annotation SummarizationSetBy = Automatic
+
+	column day_name
+		dataType: string
+		lineageTag: 598200fd-0a49-4b62-9f04-176956deff3a
+		summarizeBy: none
+		sourceColumn: day_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_weekend
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: fd4fec5a-9312-48b4-81f7-12ce57f4b5ab
+		summarizeBy: none
+		sourceColumn: is_weekend
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'gold dim_date' = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("<sql-endpoint>.datawarehouse.fabric.microsoft.com", "OlistLH"),
+				    gold_dim_date = Source{[Schema="gold",Item="dim_date"]}[Data]
+				in
+				    gold_dim_date
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
