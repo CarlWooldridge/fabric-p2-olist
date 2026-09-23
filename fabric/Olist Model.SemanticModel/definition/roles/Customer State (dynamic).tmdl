@@ -6,7 +6,8 @@ role 'Customer State (dynamic)'
 			        VALUES ( 'rls_user_state'[customer_state] ),
 			        'rls_user_state'[user_principal] = USERPRINCIPALNAME ()
 			    )
-		metadataPermission: none
+
+		columnPermission customer_name = none
 
 	tablePermission rls_user_state
 		metadataPermission: none

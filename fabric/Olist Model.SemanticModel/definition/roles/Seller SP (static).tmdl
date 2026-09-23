@@ -7,7 +7,6 @@ role 'Seller SP (static)'
 		metadataPermission: none
 
 	tablePermission dim_customer
-		metadataPermission: none
 
 	annotation PBI_Id = 0c61e591138b417ea40e6134942ac037
 
