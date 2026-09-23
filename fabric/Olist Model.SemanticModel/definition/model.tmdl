@@ -25,4 +25,5 @@ ref table bridge_order_payment
 ref table 'Time Intelligence'
 ref table measure
 ref table dimension
+ref table rls_user_state
 
