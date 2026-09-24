@@ -1,12 +1,12 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
   "metadata": {
-    "type": "KQLDatabase",
-    "displayName": "OlistEH",
-    "description": "OlistEH"
+    "type": "KQLQueryset",
+    "displayName": "Fix for lab",
+    "description": "Fix for lab"
   },
   "config": {
     "version": "2.0",
-    "logicalId": "<olisteh-kql-database-id>"
+    "logicalId": "b62d70ef-5e39-8301-42fd-f12d3a32d572"
   }
 }

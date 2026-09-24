@@ -1,0 +1,22 @@
+{
+  "queryset": {
+    "version": "1.0.0",
+    "dataSources": [
+      {
+        "id": "f74529bb-d525-477d-b746-def30a939edb",
+        "clusterUri": "",
+        "type": "Fabric",
+        "databaseItemId": "<olisteh-kql-database-id>"
+      }
+    ],
+    "tabs": [
+      {
+        "id": "dd6c8459-11db-4d76-a8f0-a7465831647c",
+        "content": ".alter-merge table orders policy mirroring dataformat=parquet with (IsEnabled=true, TargetLatencyInMinutes=5);\n\n\n\n.show database OlistEH operations mirroring-statistics",
+        "title": "Tab",
+        "dataSourceId": "f74529bb-d525-477d-b746-def30a939edb"
+      }
+    ],
+    "querysetType": "Standalone"
+  }
+}

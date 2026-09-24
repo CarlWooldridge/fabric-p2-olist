@@ -1,1 +1,15 @@
-[]
+[
+  {
+    "name": "kql_orders",
+    "path": "/Tables/silver",
+    "target": {
+      "type": "OneLake",
+      "oneLake": {
+        "path": "Tables/orders",
+        "itemId": "<olisteh-kql-database-id>",
+        "workspaceId": "00000000-0000-0000-0000-000000000000",
+        "artifactType": "KustoDatabase"
+      }
+    }
+  }
+]
