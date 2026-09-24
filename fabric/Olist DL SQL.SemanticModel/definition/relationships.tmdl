@@ -1,0 +1,4 @@
+relationship 81bbd285-03e1-5703-3385-909ea2c5f7a1
+	fromColumn: fact_orders.customer_sk
+	toColumn: dim_customer.customer_sk
+

@@ -1,0 +1,225 @@
+table v_delivered_orders
+	lineageTag: a4dc4f2f-913a-4ef0-9805-c3b5216a7c3a
+	sourceLineageTag: [gold].[v_delivered_orders]
+
+	column order_key
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: b8263998-b7a5-44df-aa23-c7cb8e55eae0
+		sourceLineageTag: order_key
+		summarizeBy: sum
+		sourceColumn: order_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_sk
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 085bbebb-3fca-44ac-b80a-0c14990789c5
+		sourceLineageTag: customer_sk
+		summarizeBy: sum
+		sourceColumn: customer_sk
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_status
+		dataType: string
+		sourceProviderType: varchar(8000)
+		lineageTag: 10623f53-d940-46a6-bbff-6cba90932901
+		sourceLineageTag: order_status
+		summarizeBy: none
+		sourceColumn: order_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column purchase_date
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: date
+		lineageTag: 87a5402b-29d9-4b18-a8b2-3e832e7fbf99
+		sourceLineageTag: purchase_date
+		summarizeBy: none
+		sourceColumn: purchase_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column purchase_hour
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 589b14cd-ddb5-4ac7-b95c-1728b9150e3b
+		sourceLineageTag: purchase_hour
+		summarizeBy: sum
+		sourceColumn: purchase_hour
+
+		annotation SummarizationSetBy = Automatic
+
+	column approved_date
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: date
+		lineageTag: 85c9ae32-bfbc-4dfd-9ce2-5e8245ad705f
+		sourceLineageTag: approved_date
+		summarizeBy: none
+		sourceColumn: approved_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column delivered_carrier_date
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: date
+		lineageTag: 8e2a9e96-720c-4822-9b79-0d15091270e8
+		sourceLineageTag: delivered_carrier_date
+		summarizeBy: none
+		sourceColumn: delivered_carrier_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column delivered_customer_date
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: date
+		lineageTag: 7852537b-f260-4aad-abbc-3589bc4cf842
+		sourceLineageTag: delivered_customer_date
+		summarizeBy: none
+		sourceColumn: delivered_customer_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column estimated_delivery_date
+		dataType: dateTime
+		formatString: General Date
+		sourceProviderType: date
+		lineageTag: 53190302-68bd-4a65-bca0-df3eef39b5ac
+		sourceLineageTag: estimated_delivery_date
+		summarizeBy: none
+		sourceColumn: estimated_delivery_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column days_to_approve
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 5ac2bf22-a344-4835-a007-6f93ac56db42
+		sourceLineageTag: days_to_approve
+		summarizeBy: sum
+		sourceColumn: days_to_approve
+
+		annotation SummarizationSetBy = Automatic
+
+	column days_to_deliver
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 7c1d9f1e-0209-4ef0-bb06-3ea4bb2bfa82
+		sourceLineageTag: days_to_deliver
+		summarizeBy: sum
+		sourceColumn: days_to_deliver
+
+		annotation SummarizationSetBy = Automatic
+
+	column days_vs_estimate
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 5ec4f794-0aa7-4bb5-b49a-08d71fccfd36
+		sourceLineageTag: days_vs_estimate
+		summarizeBy: sum
+		sourceColumn: days_vs_estimate
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_late
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		sourceProviderType: bit
+		lineageTag: 09ed6b24-9635-4f65-b355-f1a98b599387
+		sourceLineageTag: is_late
+		summarizeBy: none
+		sourceColumn: is_late
+
+		annotation SummarizationSetBy = Automatic
+
+	column item_count
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 54db69aa-8ff9-4f42-a445-e954b9de3cda
+		sourceLineageTag: item_count
+		summarizeBy: sum
+		sourceColumn: item_count
+
+		annotation SummarizationSetBy = Automatic
+
+	column items_value
+		dataType: double
+		sourceProviderType: decimal(20, 2)
+		lineageTag: ff8c0564-0a5c-430f-abb4-d0b9f8717e9e
+		sourceLineageTag: items_value
+		summarizeBy: sum
+		sourceColumn: items_value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column freight_total
+		dataType: double
+		sourceProviderType: decimal(20, 2)
+		lineageTag: ff3b5229-5b18-41e3-98fa-1d0b8a274053
+		sourceLineageTag: freight_total
+		summarizeBy: sum
+		sourceColumn: freight_total
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column payment_total
+		dataType: double
+		sourceProviderType: decimal(20, 2)
+		lineageTag: 8eeaaba1-4d57-4801-8f93-b2d3ff26d555
+		sourceLineageTag: payment_total
+		summarizeBy: sum
+		sourceColumn: payment_total
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column payment_installments
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 332a93f4-f97b-4003-b9dd-f039a40fde28
+		sourceLineageTag: payment_installments
+		summarizeBy: sum
+		sourceColumn: payment_installments
+
+		annotation SummarizationSetBy = Automatic
+
+	column review_score
+		dataType: double
+		sourceProviderType: float
+		lineageTag: a0a28246-4639-49f7-a2d8-8343bb0d8c8e
+		sourceLineageTag: review_score
+		summarizeBy: sum
+		sourceColumn: review_score
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition v_delivered_orders = entity
+		mode: directLake
+		source
+			entityName: v_delivered_orders
+			schemaName: gold
+			expressionSource: DatabaseQuery
+
+	annotation PBI_ResultType = Table
+
