@@ -1,0 +1,22 @@
+{
+  "queryset": {
+    "version": "1.0.0",
+    "dataSources": [
+      {
+        "id": "1724b345-8fa0-4440-8804-7a613ec68e75",
+        "clusterUri": "",
+        "type": "Fabric",
+        "databaseItemId": "<olisteh-kql-database-id>"
+      }
+    ],
+    "tabs": [
+      {
+        "id": "8da60b3d-7c91-4f51-a9f7-e4df2310e431",
+        "content": "orders | take 10                                              // any 10 rows — the \"look first\" habit\n\norders | count                                                // 99,441\n\norders | summarize n = count() by order_status | order by n desc\n                                                              // delivered 96,478 · shipped 1,107 · canceled 625\n\norders\n| where order_status == \"delivered\"\n| where order_purchase_timestamp between (datetime(2018-01-01) .. datetime(2018-12-31 23:59:59))\n| count                                                       // 52,783\n\norders\n| where isnotnull(order_delivered_customer_date)\n| extend days = (order_delivered_customer_date - order_purchase_timestamp) / 1d\n| summarize avg_days = avg(days), n = count()                 // 12.56 days over 96,476 orders\n\norders\n| summarize n = count() by month = startofmonth(order_purchase_timestamp)\n| top 3 by n                                                  // Nov 2017 7,544 · Jan 2018 7,269 · Mar 2018 7,211\n\norders\n| join kind=inner customers on customer_id\n| summarize n = count() by customer_state\n| top 3 by n                                                  // SP 41,746 · RJ 12,852 · MG 11,635\n\norders\n| summarize n = count() by week = bin(order_purchase_timestamp, 7d)\n| render timechart                                            // a chart, straight from the query\n\n\n\n\norders | take 5\n// SQL: SELECT TOP 5 * — any 5 rows, no order promised\n\norders\n| extend days_late = datetime_diff('day', order_delivered_customer_date, order_estimated_delivery_date)\n| where days_late > 0\n| take 5\n// extend ADDS a column and keeps every existing one: SELECT *, DATEDIFF(...) AS days_late\n\norders\n| project order_id, order_status, purchased = order_purchase_timestamp,\n          year = getyear(order_purchase_timestamp)\n| take 5\n// project KEEPS ONLY what you list (and can rename or compute): SELECT order_id, …, YEAR(…) AS year\n\norders | project-away customer_id | take 5\n// every column except customer_id\n\norders | project-rename purchased = order_purchase_timestamp | take 5\n// rename one column, keep the rest\n\n\n\norders | top 5 by order_purchase_timestamp desc\n\norders | top 5 by order_purchase_timestamp asc",
+        "title": "Tab",
+        "dataSourceId": "1724b345-8fa0-4440-8804-7a613ec68e75"
+      }
+    ],
+    "querysetType": "Standalone"
+  }
+}
