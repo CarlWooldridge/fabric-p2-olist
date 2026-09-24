@@ -261,13 +261,6 @@ table bad_flat_order_items
 
 		annotation SummarizationSetBy = Automatic
 
-	column review_comment_message
-		dataType: string
-		lineageTag: 44a5dc06-3ab3-4b6b-a6f3-efc5132d0a2b
-		summarizeBy: none
-		sourceColumn: review_comment_message
-
-		annotation SummarizationSetBy = Automatic
 
 	column 'Purchase Date' = DATE(YEAR(bad_flat_order_items[order_purchase_timestamp]), MONTH(bad_flat_order_items[order_purchase_timestamp]), DAY(bad_flat_order_items[order_purchase_timestamp]))
 		dataType: dateTime
@@ -281,7 +274,8 @@ table bad_flat_order_items
 				let
 				    Source  = Sql.Database("<sql-endpoint>.datawarehouse.fabric.microsoft.com", "OlistLH"),
 				    Data    = Source{[Schema = "silver", Item = "bad_flat_order_items"]}[Data],
-				    NoBlank = Table.ReplaceValue(Data, "", null, Replacer.ReplaceValue, {"shipping_limit_date", "order_purchase_timestamp", "order_approved_at", "order_delivered_carrier_date", "order_delivered_customer_date", "order_estimated_delivery_date"}),
+				    Slim    = Table.RemoveColumns(Data, {"review_comment_message"}),
+				    NoBlank = Table.ReplaceValue(Slim, "", null, Replacer.ReplaceValue, {"shipping_limit_date", "order_purchase_timestamp", "order_approved_at", "order_delivered_carrier_date", "order_delivered_customer_date", "order_estimated_delivery_date"}),
 				    Typed   = Table.TransformColumnTypes(NoBlank, {{"shipping_limit_date", type datetime}, {"order_purchase_timestamp", type datetime}, {"order_approved_at", type datetime}, {"order_delivered_carrier_date", type datetime}, {"order_delivered_customer_date", type datetime}, {"order_estimated_delivery_date", type datetime}, {"price", Currency.Type}, {"freight_value", Currency.Type}}, "en-US")
 				in
 				    Typed
