@@ -1,0 +1,4 @@
+relationship ea9d28a4-922d-49bb-b3a3-9cffc4faa2cc
+	crossFilteringBehavior: bothDirections
+	fromColumn: bad_flat_order_items.'Purchase Date'
+	toColumn: dim_date.date_key
