@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Notebook",
+    "displayName": "managed vs external tables"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "4c276216-7ee9-8ab0-4583-f96e274a6fcb"
+  }
+}
