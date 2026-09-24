@@ -1,2 +1,5 @@
 # fabric-p2-olist
-Fabric workspace sync for P2 Olist (DP-600 build). Item definitions only - no data.
+
+This is the live Fabric Git integration repo for the `P2 Olist` workspace, my DP-600 build on the [Brazilian E-Commerce dataset by Olist](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce). The workspace was connected to this repo at creation, so every item (notebooks, pipelines, dataflows, the lakehouse, warehouse and Eventhouse, five semantic models and two reports) was versioned as it was built: 62 real-dated commits between Sep 19 and Sep 24, 2026, some from the workspace's Commit button and some pushed straight to TMDL. It holds item definitions only, never data. Tenant-specific values (test-user UPNs, workspace, lakehouse, endpoint and connection IDs) have since been replaced with placeholders such as `<p2-olist-workspace-id>`.
+
+**The write-up is here: [P2: Olist — the DP-600 build](https://github.com/CarlWooldridge/fabric-portfolio/tree/main/P2-olist)**, with the findings, graphics, screenshots and curated copies of the code. The dataset is Olist's, licensed [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/); customer, seller and product names in it are synthetic.
