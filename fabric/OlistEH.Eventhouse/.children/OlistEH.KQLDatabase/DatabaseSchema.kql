@@ -1,0 +1,14 @@
+// KQL script
+// Use management commands in this script to configure your database items, such as tables, functions, materialized views, and more.
+
+
+.create-merge table orders (order_id:guid, customer_id:guid, order_status:string, order_purchase_timestamp:datetime, order_approved_at:datetime, order_delivered_carrier_date:datetime, order_delivered_customer_date:datetime, order_estimated_delivery_date:datetime) 
+.create-or-alter table orders ingestion csv mapping 'orders_mapping'
+```
+[{"Properties":{"Ordinal":"0"},"column":"order_id","datatype":""},{"Properties":{"Ordinal":"1"},"column":"customer_id","datatype":""},{"Properties":{"Ordinal":"2"},"column":"order_status","datatype":""},{"Properties":{"Ordinal":"3"},"column":"order_purchase_timestamp","datatype":""},{"Properties":{"Ordinal":"4"},"column":"order_approved_at","datatype":""},{"Properties":{"Ordinal":"5"},"column":"order_delivered_carrier_date","datatype":""},{"Properties":{"Ordinal":"6"},"column":"order_delivered_customer_date","datatype":""},{"Properties":{"Ordinal":"7"},"column":"order_estimated_delivery_date","datatype":""}]
+```
+.create-merge table customers (customer_id:guid, customer_unique_id:guid, customer_zip_code_prefix:long, customer_city:string, customer_state:string) 
+.create-or-alter table customers ingestion csv mapping 'customers_mapping'
+```
+[{"Properties":{"Ordinal":"0"},"column":"customer_id","datatype":""},{"Properties":{"Ordinal":"1"},"column":"customer_unique_id","datatype":""},{"Properties":{"Ordinal":"2"},"column":"customer_zip_code_prefix","datatype":""},{"Properties":{"Ordinal":"3"},"column":"customer_city","datatype":""},{"Properties":{"Ordinal":"4"},"column":"customer_state","datatype":""}]
+```

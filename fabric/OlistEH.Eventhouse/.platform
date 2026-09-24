@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Eventhouse",
+    "displayName": "OlistEH",
+    "description": "OlistEH"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "33a78bab-e870-8aaa-4765-cd53a04de92b"
+  }
+}
