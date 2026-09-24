@@ -1,0 +1,30 @@
+{
+  "formatVersion": "202502",
+  "computeEngineSettings": {
+    "allowModernEvaluationEngine": true
+  },
+  "name": "M Drill",
+  "queryGroups": [],
+  "documentLocale": "en-US",
+  "queriesMetadata": {
+    "Delivery Bands": {
+      "queryId": "95479b70-18e9-4d27-bab2-f2f7ea1f3cb4",
+      "queryName": "Delivery Bands"
+    },
+    "fxBand": {
+      "queryId": "a86d4719-e17e-4f06-b5bb-a5aa6db941dd",
+      "queryName": "fxBand"
+    },
+    "Top Categories": {
+      "queryId": "b94e26fd-dd76-4591-8423-ebe53cbbeb9c",
+      "queryName": "Top Categories"
+    }
+  },
+  "connections": [
+    {
+      "path": "<sql-endpoint>.datawarehouse.fabric.microsoft.com",
+      "kind": "SQL",
+      "connectionId": "{\"ClusterId\":\"<connection-cluster-id>\",\"DatasourceId\":\"<connection-id>\"}"
+    }
+  ]
+}

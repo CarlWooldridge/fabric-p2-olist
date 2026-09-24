@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Dataflow",
+    "displayName": "M Drill"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "05d679a9-1031-96db-42ce-992007cecdee"
+  }
+}
