@@ -1,0 +1,90 @@
+table dim_seller
+	lineageTag: f731de66-f408-4f13-9cde-08e710c7a4a0
+	sourceLineageTag: [gold].[dim_seller]
+
+	column seller_sk
+		dataType: int64
+		formatString: 0
+		lineageTag: cfb80d67-ab55-4e78-9378-0462a247d0f7
+		sourceLineageTag: seller_sk
+		summarizeBy: none
+		sourceColumn: seller_sk
+
+		annotation SummarizationSetBy = Automatic
+
+	column seller_id
+		dataType: string
+		lineageTag: 10e96fe2-f6fa-4a8d-9121-9084e0d74111
+		sourceLineageTag: seller_id
+		summarizeBy: none
+		sourceColumn: seller_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column seller_name
+		dataType: string
+		lineageTag: 3b276275-a5f0-44f0-bf72-1a5080a5203a
+		sourceLineageTag: seller_name
+		summarizeBy: none
+		sourceColumn: seller_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column seller_zip_prefix
+		dataType: string
+		lineageTag: dc2c64e0-1bc8-40b3-b318-d399e6ccfaec
+		sourceLineageTag: seller_zip_prefix
+		summarizeBy: none
+		sourceColumn: seller_zip_prefix
+
+		annotation SummarizationSetBy = Automatic
+
+	column seller_city
+		dataType: string
+		lineageTag: 9984471c-fce1-4453-a38e-ae179430e4e5
+		sourceLineageTag: seller_city
+		summarizeBy: none
+		sourceColumn: seller_city
+
+		annotation SummarizationSetBy = Automatic
+
+	column seller_state
+		dataType: string
+		lineageTag: 597f03a6-3e46-4dd7-af03-25630d2cc08f
+		sourceLineageTag: seller_state
+		summarizeBy: none
+		sourceColumn: seller_state
+
+		annotation SummarizationSetBy = Automatic
+
+	column seller_lat
+		dataType: double
+		lineageTag: 2b4c178b-cbe3-4f20-a6f4-be620b9182fb
+		sourceLineageTag: seller_lat
+		summarizeBy: none
+		sourceColumn: seller_lat
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column seller_lng
+		dataType: double
+		lineageTag: 0600cb00-ebb7-4c92-897b-0e9d75914038
+		sourceLineageTag: seller_lng
+		summarizeBy: none
+		sourceColumn: seller_lng
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition dim_seller = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("<sql-endpoint>.datawarehouse.fabric.microsoft.com", "OlistLH"),
+				    Data = Source{[Schema = "gold", Item = "dim_seller"]}[Data]
+				in
+				    Data
+

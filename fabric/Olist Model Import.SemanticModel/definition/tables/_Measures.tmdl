@@ -1,0 +1,396 @@
+table _Measures
+	lineageTag: 8969a2cf-1045-4399-92bd-412be01f9bc8
+
+	measure 'Order Count' = ```
+			COUNTROWS('fact_orders') -- header
+			
+			```
+		formatString: #,0
+		lineageTag: 840f5be2-d163-48e1-b508-63e56c280b93
+
+	measure 'Orders Delivered' =
+			CALCULATE([Order Count],
+			    USERELATIONSHIP('fact_orders'[delivered_customer_date], 'dim_date'[date_key]))
+		formatString: #,0
+		lineageTag: 0b415c05-393c-4b42-95dd-f534612d5bb0
+
+	measure Customers = CALCULATE(DISTINCTCOUNT('dim_customer'[customer_key]), 'fact_orders')
+		formatString: #,0
+		lineageTag: ef79da20-6e7a-4996-85fe-524a9f329c72
+
+	measure 'Customer Versions' = DISTINCTCOUNT('fact_orders'[customer_sk])
+		formatString: #,0
+		lineageTag: c667f226-add9-4494-b362-a6dc0ab40e24
+
+	measure 'Avg Days to Deliver' = AVERAGE('fact_orders'[days_to_deliver])
+		formatString: #,0.00
+		lineageTag: b2e65cd1-fac0-442a-8b62-bbc88fc0638a
+
+	measure 'Avg Days to Deliver (orders containing)' =
+			
+			CALCULATE([Avg Days to Deliver],
+			    CROSSFILTER('fact_order_items'[order_key], 'fact_orders'[order_key], BOTH))
+		formatString: #,0.00
+		lineageTag: 6d71f089-bc09-41ea-8033-d99ca917d379
+
+	measure 'Orders Containing' = ```
+			
+			CALCULATE([Order Count],
+			    CROSSFILTER('fact_order_items'[order_key], 'fact_orders'[order_key], BOTH))
+			
+			```
+		formatString: #,0
+		lineageTag: e6ae2ee6-fe75-4b66-8a35-0929f41eb947
+
+	measure Revenue = SUM('fact_order_items'[price]) --lines
+		displayFolder: Revenue
+		lineageTag: d2efcc91-bdcd-4b9e-b989-c3277a7f1188
+
+		formatStringDefinition =
+				SWITCH(TRUE(),
+				    SELECTEDMEASURE() < 1000,    "#,##0",
+				    SELECTEDMEASURE() < 1000000, "#,##0,.0\K",
+				                                 "#,##0,,.0\M")
+
+	measure 'Payment Value' = SUM('bridge_order_payment'[payment_value])
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: b71053b0-6daf-47be-8f74-dab4194e110a
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Orders by Payment Type' = ```
+			
+			CALCULATE([Order Count],
+			    CROSSFILTER('bridge_order_payment'[order_key], 'fact_orders'[order_key], BOTH))
+			
+			```
+		formatString: #,0
+		lineageTag: c9e7a6fa-d5c3-4522-9c10-13e6f239eba1
+
+	measure 'Revenue by Payment Type' =
+			
+			CALCULATE([Revenue],
+			    CROSSFILTER('bridge_order_payment'[order_key], 'fact_orders'[order_key], BOTH))
+		formatString: \$#,0.00;(\$#,0.00);\$#,0.00
+		displayFolder: Revenue
+		lineageTag: 4f040ec2-0f54-44b6-a7a4-756598a1ba0f
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Avg Review via Bridge' =
+			
+			AVERAGEX('bridge_order_payment', RELATED('fact_orders'[review_score]))
+		lineageTag: a450a1ae-e91d-4f63-9c95-4e3b6e66d630
+
+	measure Freight = SUM('fact_order_items'[freight_value])  -- lines
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 777a79ef-9d8c-4034-a51f-16f8a7043620
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Revenue YTD' = CALCULATE([Revenue], DATESYTD('dim_date'[date_key]))
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: Revenue
+		lineageTag: 4f7af7c5-e9f5-4cb8-a889-14a75d812861
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Revenue PY' = CALCULATE([Revenue], SAMEPERIODLASTYEAR('dim_date'[date_key]))
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		displayFolder: Revenue
+		lineageTag: abeab950-f6ef-4dfb-8e9b-a06905dea682
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Revenue YoY %' =
+			
+			VAR cur = [Revenue]
+			VAR py  = [Revenue PY]
+			RETURN DIVIDE(cur - py, py)
+		displayFolder: Revenue
+		lineageTag: b1d3703d-7bf8-4782-9bea-32f852a461de
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Freight YTD' = CALCULATE([Freight], DATESYTD('dim_date'[date_key]))
+		formatString: 0
+		lineageTag: c08ba6a8-2ef7-4b0d-a842-947f1a7a536a
+
+	measure 'Freight YoY %' =
+			
+			VAR cur = [Freight]
+			VAR py  = [Freight PY]
+			RETURN DIVIDE(cur - py, py)
+		lineageTag: e7f0c5c6-b817-4e72-93ca-6b85e2a0b8ee
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Order Count YTD' = CALCULATE([Order Count], DATESYTD('dim_date'[date_key]))
+		formatString: 0
+		lineageTag: f4caaf38-0b39-412b-bfcc-03de94790513
+
+	measure 'Order Count PY' = CALCULATE([Order Count], SAMEPERIODLASTYEAR('dim_date'[date_key]))
+		formatString: 0
+		lineageTag: 6cd28977-df07-4c46-b884-19256c9708d6
+
+	measure 'Order Count YoY %' =
+			
+			VAR cur = [Order Count]
+			VAR py  = [Order Count PY]
+			RETURN DIVIDE(cur - py, py)
+		formatString: 0
+		lineageTag: 38e150b4-1576-492d-8684-84e8d600f6f8
+
+	measure 'Freight PY' = CALCULATE([Freight], SAMEPERIODLASTYEAR('dim_date'[date_key]))
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 790eee2b-14e3-4709-92d0-1180e9ca7ebf
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	measure 'Revenue Rank' =
+			
+			IF(NOT ISBLANK([Revenue]),
+			    RANK(DENSE, ALLSELECTED('dim_seller'[seller_state]), ORDERBY([Revenue], DESC)))
+		displayFolder: Revenue
+		lineageTag: f2888fb7-9b40-4773-ae0e-1c7510019e9c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Revenue vs Prev Month' =
+			
+			VAR prev = CALCULATE([Revenue], OFFSET(-1, , ORDERBY('dim_date'[month_key], ASC)))
+			RETURN [Revenue] - prev
+		displayFolder: Revenue
+		lineageTag: 5d0bead2-a21e-4c8f-ae1a-1c420ab5016a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Revenue 3mo Moving Avg' =
+			
+			AVERAGEX(
+			    WINDOW(-2, REL, 0, REL, ALLSELECTED('dim_date'[month_key]),
+			           ORDERBY('dim_date'[month_key], ASC)),
+			    [Revenue])
+		displayFolder: Revenue
+		lineageTag: 9708a1a8-d924-4d91-a0af-4dc8bb20828f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'First Month Revenue' =
+			
+			CALCULATE([Revenue], INDEX(1, FILTER(ALLSELECTED('dim_date'[month_key]), [Revenue] > 0),
+			          ORDERBY('dim_date'[month_key], ASC)))
+		displayFolder: Revenue
+		lineageTag: 97077985-4d66-4320-a469-13b3ab96657f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Revenue vs Prev Month (PREVIOUSMONTH)' =
+			
+			[Revenue] - CALCULATE([Revenue], PREVIOUSMONTH('dim_date'[date_key]))
+		displayFolder: Revenue
+		lineageTag: 5a5bc604-6a5a-4d6a-bb2c-a49813bdfb33
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Revenue vs Prev Month (DATEADD)' =
+			
+			[Revenue] - CALCULATE([Revenue], DATEADD('dim_date'[date_key], -1, MONTH))
+		displayFolder: Revenue
+		lineageTag: fd92f0d6-5c9d-4e3a-80d3-a4611a33cc0f
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Revenue 3mo Moving Avg (DATESINPERIOD)' =
+			
+			AVERAGEX(
+			    CALCULATETABLE(VALUES('dim_date'[month_key]),
+			        DATESINPERIOD('dim_date'[date_key], MAX('dim_date'[date_key]), -3, MONTH)),
+			    [Revenue])
+		displayFolder: Revenue
+		lineageTag: 5bc9140f-793f-42a1-8110-fc9c1a33ee89
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'First Month Revenue (FIRSTNONBLANK)' = ```
+			
+			VAR firstMonth = FIRSTNONBLANK(ALLSELECTED('dim_date'[month_key]), [Revenue])
+			RETURN CALCULATE([Revenue], 'dim_date'[month_key] = firstMonth)
+			
+			```
+		displayFolder: Revenue
+		lineageTag: 6d036815-2c1c-4c60-aa7f-1fb098f7a06d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Gap to State Above' =
+			
+			IF(ISINSCOPE('dim_seller'[seller_state]) && NOT ISBLANK([Revenue]),
+			    VAR above = CALCULATE([Revenue],
+			        OFFSET(-1, ALLSELECTED('dim_seller'[seller_state]), ORDERBY([Revenue], DESC)))
+			    RETURN IF(NOT ISBLANK(above), above - [Revenue]))
+		displayFolder: Window function
+		lineageTag: dabfb25e-01f5-4c25-8c1f-3797f27cb0a6
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Cumulative Revenue %' =
+			
+			IF(ISINSCOPE('dim_seller'[seller_state]) && NOT ISBLANK([Revenue]),
+			    DIVIDE(
+			        CALCULATE([Revenue],
+			            WINDOW(1, ABS, 0, REL, ALLSELECTED('dim_seller'[seller_state]), ORDERBY([Revenue], DESC))),
+			        CALCULATE([Revenue], ALLSELECTED('dim_seller'[seller_state]))))
+		formatString: #,0.0%;-#,0.0%;#,0.0%
+		displayFolder: Window function
+		lineageTag: 52cbbc7a-820d-4455-b580-88f4eaf89c1c
+
+	measure '% of Top State' = ```
+			
+			IF(ISINSCOPE('dim_seller'[seller_state]) && NOT ISBLANK([Revenue]),
+			    DIVIDE([Revenue],
+			        CALCULATE([Revenue], INDEX(1, ALLSELECTED('dim_seller'[seller_state]), ORDERBY([Revenue], DESC)))))
+			
+			```
+		formatString: #,0.0%;-#,0.0%;#,0.0%
+		displayFolder: Window function
+		lineageTag: 33700769-1d06-4e49-a2b3-da02cb165962
+
+	measure 'Selected State' = ```
+			SELECTEDVALUE('dim_seller'[seller_state], "All states")
+			
+			```
+		displayFolder: Information functions
+		lineageTag: e98d3097-6e77-4045-a321-38778e62f886
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Is Filtered' = ISFILTERED('dim_seller'[seller_state])
+		displayFolder: Information functions
+		lineageTag: e0ec61e5-880f-43fe-a3cf-8db6710be50c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Is Cross' = ISCROSSFILTERED('dim_seller'[seller_state])
+		displayFolder: Information functions
+		lineageTag: cf5294ad-86e8-47e0-aa99-776d8ffda9d2
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Lines Crossed' = ```
+			ISCROSSFILTERED('fact_order_items')
+			
+			```
+		displayFolder: Information functions
+		lineageTag: bb7e3846-def5-4906-b791-a20454f55d1e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Has One Value' = HASONEVALUE('dim_product'[category_display])
+		displayFolder: Information functions
+		lineageTag: b5d3432e-0e75-436d-adc8-669fe5ddacf7
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'State In Scope' = ISINSCOPE('dim_seller'[seller_state])
+		displayFolder: Information functions
+		lineageTag: c3715ce4-bbdd-4ef9-ab48-e5d44955532d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'City In Scope' = ```
+			ISINSCOPE('dim_seller'[seller_city])
+			
+			```
+		displayFolder: Information functions
+		lineageTag: 813c599a-5360-4ebc-9305-50c861d601cd
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Categories Sold' = CALCULATE(DISTINCTCOUNT('dim_product'[category_display]), 'fact_order_items')
+		displayFolder: Category
+		lineageTag: 6d8895ce-5810-4157-b449-b23234c6ae39
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Has One Category' = CALCULATE(HASONEVALUE('dim_product'[category_display]), 'fact_order_items')
+		displayFolder: Category
+		lineageTag: 37295aaf-152c-4bf7-857c-df2bb8063b3b
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Only Category' = ```
+			CALCULATE(SELECTEDVALUE('dim_product'[category_display], "several"), 'fact_order_items')
+			
+			```
+		displayFolder: Category
+		lineageTag: 3291e0a7-7eb1-4510-9960-6b35156a26e6
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Bad Filter' =
+			CALCULATE([Revenue], FILTER('fact_order_items', RELATED('dim_seller'[seller_state]) = "SP"))
+			-- Wrong: filters the fact table, materializes a huge tableBad
+		displayFolder: Table filtering
+		lineageTag: f520edd7-cfb3-4440-bb5c-ea4313f048bb
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Good Filter' =
+			CALCULATE([Revenue], 'dim_seller'[seller_state] = "SP")
+			-- Right: filters the dimension
+		displayFolder: Table filtering
+		lineageTag: e843f86c-ae64-4f32-acee-11b50cc8990d
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Bad Filter (measure)' = CALCULATE([Revenue], FILTER('fact_order_items', [Revenue] > 100))
+		displayFolder: Table filtering
+		lineageTag: a9e1bf79-e6a4-48f4-883f-67459181e936
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Good Filter (column)' = CALCULATE([Revenue], 'fact_order_items'[price] > 100)
+		displayFolder: Table filtering
+		lineageTag: 1ef3a9ee-c33f-46a9-be1c-054c24218b6a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Freight Ratio' = DIVIDE([Freight], [Revenue])
+		displayFolder: Iterator performance
+		lineageTag: 0a9fdd20-ade6-4e53-9df6-da464173e455
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Slow Iterate' = ```
+			SUMX('fact_order_items', [Freight Ratio])
+			
+			```
+		displayFolder: Iterator performance
+		lineageTag: acdbd037-8c8b-4caa-925b-668075c213b4
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Fast Iterate' =
+			SUMX('fact_order_items',
+			            DIVIDE('fact_order_items'[freight_value], 'fact_order_items'[price]))
+		displayFolder: Iterator performance
+		lineageTag: eec8e333-7470-40fa-bf74-878c454ce9ba
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Value
+		formatString: 0
+		lineageTag: 04abdde2-b4bb-4760-ac6a-c71d7f0f0904
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Value]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Measures = calculated
+		mode: import
+		source = {BLANK()}
+
+	annotation PBI_Id = 1310a5eddfb740f7b0ef27ef15bc9ee3
+

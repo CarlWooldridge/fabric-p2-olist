@@ -1,0 +1,16 @@
+role 'Customer State (dynamic)'
+	modelPermission: read
+
+	tablePermission dim_customer =
+			[customer_state] IN CALCULATETABLE (
+			        VALUES ( 'rls_user_state'[customer_state] ),
+			        'rls_user_state'[user_principal] = USERPRINCIPALNAME ()
+			    )
+
+		columnPermission customer_name = none
+
+	tablePermission rls_user_state
+		metadataPermission: none
+
+	annotation PBI_Id = 078a69921b5d4d52a220e7cd3da0ccc2
+

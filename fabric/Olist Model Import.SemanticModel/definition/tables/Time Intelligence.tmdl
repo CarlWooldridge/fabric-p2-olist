@@ -1,0 +1,40 @@
+table 'Time Intelligence'
+	lineageTag: 10434314-95b8-4c30-b8b2-5f4d3a3f8cff
+
+	calculationGroup
+		precedence: 10
+
+		calculationItem Measure = SELECTEDMEASURENAME()
+
+		calculationItem Current = SELECTEDMEASURE()
+
+		calculationItem PY = CALCULATE(SELECTEDMEASURE(), SAMEPERIODLASTYEAR('dim_date'[date_key]))
+
+		calculationItem 'YoY %' =
+				
+				VAR cur = SELECTEDMEASURE()
+				VAR py  = CALCULATE(SELECTEDMEASURE(),SAMEPERIODLASTYEAR('dim_date'[date_key]))
+				RETURN DIVIDE(cur - py, py)
+
+			formatStringDefinition = "0.0%"
+
+		calculationItem YTD = CALCULATE(SELECTEDMEASURE(), DATESYTD('dim_date'[date_key]))
+
+	column Period
+		dataType: string
+		lineageTag: 52dcaf2e-bc0d-4fa2-8f03-43d40ddec25f
+		summarizeBy: none
+		sourceColumn: Name
+		sortByColumn: Ordinal
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ordinal
+		dataType: int64
+		formatString: 0
+		lineageTag: 7359c610-4225-4cf4-8d70-4dd0ce525f73
+		summarizeBy: sum
+		sourceColumn: Ordinal
+
+		annotation SummarizationSetBy = Automatic
+

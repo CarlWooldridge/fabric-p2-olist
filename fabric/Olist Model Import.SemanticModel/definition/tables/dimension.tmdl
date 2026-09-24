@@ -1,0 +1,50 @@
+table dimension
+	lineageTag: 7647b5a1-f019-4109-92e7-30fe1d3ffee2
+
+	column dimension
+		lineageTag: d1f8b1d2-78ad-4af8-8e44-7dbc81ba83f4
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: 'dimension Order'
+
+		relatedColumnDetails
+			groupByColumn: 'dimension Fields'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'dimension Fields'
+		isHidden
+		lineageTag: 0a5c807f-8d38-4d7b-a060-c74aef239de3
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: 'dimension Order'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'dimension Order'
+		isHidden
+		formatString: 0
+		lineageTag: 3f760100-70ab-40f3-ac0b-a3f39d6b8d5c
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dimension = calculated
+		mode: import
+		source =
+				{
+				    ("Customer State", NAMEOF('dim_customer'[customer_state]), 0),
+				    ("Customer Name", NAMEOF('dim_customer'[customer_name]), 1),
+				    ("Order Status", NAMEOF('fact_orders'[order_status]), 2),
+				    ("Year", NAMEOF('dim_date'[year]), 3)
+				}
+
+	annotation PBI_Id = c1ce32bb42fc4dfa84ebdcfbbfe480c0
+

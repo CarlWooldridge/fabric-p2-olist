@@ -1,0 +1,12 @@
+role 'Seller SP (static)'
+	modelPermission: read
+
+	tablePermission dim_seller = [seller_state] == "SP"
+
+	tablePermission rls_user_state
+		metadataPermission: none
+
+	tablePermission dim_customer
+
+	annotation PBI_Id = 0c61e591138b417ea40e6134942ac037
+

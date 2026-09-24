@@ -1,0 +1,32 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_ProTooling = ["WebModelingEdit","DaxQueryView_Desktop","CalcGroup","RemoteModeling"]
+
+annotation __TEdtr = 1
+
+ref table dim_product
+ref table dim_date
+ref table dim_seller
+ref table fact_order_items
+ref table fact_orders
+ref table dim_customer
+ref table _Measures
+ref table dim_payment_type
+ref table bridge_order_payment
+ref table 'Time Intelligence'
+ref table measure
+ref table dimension
+ref table rls_user_state
+
+ref role 'Seller SP (static)'
+ref role 'Customer State (dynamic)'
+

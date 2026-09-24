@@ -1,0 +1,65 @@
+table bridge_order_payment
+	lineageTag: 42d427ab-c092-4f76-b02e-6a5b6b07d41b
+	sourceLineageTag: [gold].[bridge_order_payment]
+
+	column order_key
+		dataType: int64
+		formatString: 0
+		lineageTag: d6e72c1a-8b85-4b12-9cae-c88037048c65
+		sourceLineageTag: order_key
+		summarizeBy: none
+		sourceColumn: order_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_sequential
+		dataType: int64
+		formatString: 0
+		lineageTag: 24c41ea9-fa5e-4be9-8298-2414cfaa4057
+		sourceLineageTag: payment_sequential
+		summarizeBy: sum
+		sourceColumn: payment_sequential
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_type_sk
+		dataType: int64
+		formatString: 0
+		lineageTag: 2e81fc28-26aa-4002-9322-a9d341afccca
+		sourceLineageTag: payment_type_sk
+		summarizeBy: none
+		sourceColumn: payment_type_sk
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_installments
+		dataType: int64
+		formatString: 0
+		lineageTag: 7a537c03-0809-452b-8b70-403b0ff0b9a1
+		sourceLineageTag: payment_installments
+		summarizeBy: sum
+		sourceColumn: payment_installments
+
+		annotation SummarizationSetBy = Automatic
+
+	column payment_value
+		dataType: decimal
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: 7d5cd085-844f-4d48-bf60-a57b7c08f5a7
+		sourceLineageTag: payment_value
+		summarizeBy: sum
+		sourceColumn: payment_value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-US"}
+
+	partition bridge_order_payment = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("<sql-endpoint>.datawarehouse.fabric.microsoft.com", "OlistLH"),
+				    Data = Source{[Schema = "gold", Item = "bridge_order_payment"]}[Data]
+				in
+				    Data
+
