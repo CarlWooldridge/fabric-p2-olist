@@ -1,0 +1,38 @@
+{
+  "sources": [
+    {
+      "id": "552a13f0-c856-4874-b463-062cb4bf4f7f",
+      "name": "fabric-workspace-events",
+      "type": "FabricWorkspaceItemEvents",
+      "properties": {
+        "eventScope": "Workspace",
+        "workspaceId": "<watched-workspace-id>",
+        "includedEventTypes": [
+          "Microsoft.Fabric.ItemCreateSucceeded",
+          "Microsoft.Fabric.ItemCreateFailed",
+          "Microsoft.Fabric.ItemUpdateSucceeded",
+          "Microsoft.Fabric.ItemUpdateFailed",
+          "Microsoft.Fabric.ItemDeleteSucceeded",
+          "Microsoft.Fabric.ItemDeleteFailed",
+          "Microsoft.Fabric.ItemSoftDeleteSucceeded",
+          "Microsoft.Fabric.ItemSoftDeleteFailed",
+          "Microsoft.Fabric.ItemRecoverSucceeded",
+          "Microsoft.Fabric.ItemRecoverFailed"
+        ],
+        "filters": []
+      }
+    }
+  ],
+  "destinations": [],
+  "streams": [
+    {
+      "id": "17ea3ba0-f36d-441f-868c-e176934c98b6",
+      "name": "fabric_workspace_events_eventstream-stream",
+      "type": "DefaultStream",
+      "properties": {},
+      "inputNodes": []
+    }
+  ],
+  "operators": [],
+  "compatibilityLevel": "1.1"
+}
